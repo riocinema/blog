@@ -5,7 +5,7 @@ author: "Rio Cinema"
 tags: ["demo"]
 slug: "first-post"
 excerpt: "A test post to confirm the build + templates are working."
-layout: "post.njk"
+layout: layouts/post.njk
 permalink: "/2026/01/01/first-post/"
 ---
 
