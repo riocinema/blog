@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title }} | Rio Blog</title>
+  {% if excerpt %}<meta name="description" content="{{ excerpt }}">{% endif %}
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 32px; line-height: 1.6; max-width: 72ch; }
+    a { color: inherit; }
+    .meta { opacity: .7; font-size: 14px; margin: 10px 0 24px; }
+    img { max-width: 100%; height: auto; display: block; margin: 18px 0; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 26px; }
+    .tag { font-size: 12px; opacity: .75; border: 1px solid rgba(0,0,0,.2); padding: 4px 10px; border-radius: 999px; }
+  </style>
+</head>
+<body>
+  <p><a href="/">← Back to blog</a></p>
+
+  <article>
+    <h1>{{ title }}</h1>
+
+    <p class="meta">
+      {{ date | date: "%Y-%m-%d" }} • {{ author }}
+    </p>
+
+    {% if featuredImage %}
+      <img src="{{ featuredImage }}" alt="{{ featuredImageAlt or '' }}">
+    {% endif %}
+
+    {{ content | safe }}
+
+    {% if tags %}
+      <div class="tags">
+        {% for t in tags %}
+          <span class="tag">{{ t }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </article>
+</body>
+</html>
