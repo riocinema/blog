@@ -1,9 +1,9 @@
 module.exports = function (eleventyConfig) {
-  // Copy images straight through to the output
+  eleventyConfig.ignores.add("src/**/.gitkeep");
+
   eleventyConfig.addPassthroughCopy({ "src/images": "images" });
   eleventyConfig.addPassthroughCopy({ "admin": "admin" });
 
-  // Blog posts collection
   eleventyConfig.addCollection("posts", (collectionApi) =>
     collectionApi.getFilteredByGlob("src/posts/*.md").reverse()
   );
