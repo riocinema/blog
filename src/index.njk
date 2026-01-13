@@ -1,0 +1,30 @@
+---
+title: "Rio Blog"
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title }}</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 32px; line-height: 1.4; }
+    a { color: inherit; }
+    .post { margin: 0 0 18px; }
+    .meta { opacity: .7; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>{{ title }}</h1>
+  <p class="meta">Demo index (Eleventy is working if you can see this).</p>
+
+  <h2>Posts</h2>
+  {% for post in collections.posts %}
+    <div class="post">
+      <div class="meta">{{ post.data.date | date: "%Y-%m-%d" }} • {{ post.data.author }}</div>
+      <a href="{{ post.url }}"><strong>{{ post.data.title }}</strong></a>
+    </div>
+  {% endfor %}
+</body>
+</html>
