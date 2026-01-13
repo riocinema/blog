@@ -21,7 +21,7 @@
     <h1>{{ title }}</h1>
 
     <p class="meta">
-      {{ date | date: "%Y-%m-%d" }} • {{ author }}
+      {{ date | readableDate }} • {{ author }}
     </p>
 
     {% if featuredImage %}
