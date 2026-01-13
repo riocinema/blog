@@ -24,7 +24,7 @@ title: "Rio Blog"
       <li>
         <a href="{{ post.url }}">{{ post.data.title }}</a>
         <div class="meta">
-          {% if post.data.date %}{{ post.data.date | date: "%Y-%m-%d" }}{% endif %}
+          {% if post.data.date %}{{ post.data.date | readableDate }}{% endif %}
           {% if post.data.author %} • {{ post.data.author }}{% endif %}
         </div>
       </li>
