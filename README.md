@@ -1,6 +1,6 @@
 # Rio Forever Blog
 
-This repository contains the source code and content for the Rio Cinema blog
+This repository contains the source code and content for the Rio Forever blog
 (`blog.riocinema.org.uk`).
 
 ## Stack
