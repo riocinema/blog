@@ -1,0 +1,32 @@
+backend:
+  name: github
+  repo: riocinema/blog
+  branch: main
+
+media_folder: "src/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "posts"
+    label: "Blog posts"
+    folder: "src/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+      - { label: "Author", name: "author", widget: "string", required: false }
+      - { label: "Excerpt", name: "excerpt", widget: "text", required: false }
+      - { label: "Featured image", name: "featuredImage", widget: "image", required: false }
+      - { label: "Featured image alt text", name: "featuredImageAlt", widget: "string", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - label: "Optional button link"
+        name: "cta"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Button label", name: "label", widget: "string", required: false }
+          - { label: "URL", name: "url", widget: "string", required: false }
