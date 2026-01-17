@@ -2,9 +2,13 @@ backend:
   name: github
   repo: riocinema/blog
   branch: main
+  base_url: https://decap-proxy.digital-250.workers.dev
+  auth_endpoint: /auth
 
 media_folder: "src/images/uploads"
 public_folder: "/images/uploads"
+publish_mode: editorial_workflow
+
 
 collections:
   - name: "posts"
