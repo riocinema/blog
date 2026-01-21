@@ -1,0 +1,203 @@
+/* =========================
+   Fonts
+   ========================= */
+
+@font-face {
+  font-family: "URW Gothic Demi";
+  src: url("/fonts/URWGothic-Demi.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "00 Hypertext";
+  src: url("/fonts/00HypertextDisplayNon-Commercial-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================
+   CSS Variables
+   ========================= */
+
+:root {
+  --bg: #181617;
+  --text: #f4ede4;
+  --hover: #ee8a92;
+}
+
+/* =========================
+   Base
+   ========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: "URW Gothic Demi", system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* =========================
+   Header
+   ========================= */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(24,22,23,0.9), rgba(24,22,23,0));
+}
+
+.site-header img {
+  height: 32px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.material-symbols-outlined {
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* =========================
+   Layout
+   ========================= */
+
+main {
+  padding: 140px 32px 64px;
+}
+
+/* =========================
+   Homepage list
+   ========================= */
+
+.post-list {
+  max-width: 1200px;
+}
+
+.post-item {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  margin-bottom: 28px;
+}
+
+.post-item:hover .post-title {
+  color: var(--hover);
+}
+
+.post-title {
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  line-height: 1.05;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.post-date {
+  font-family: "00 Hypertext", monospace;
+  font-size: 0.45em;
+  margin-left: 0.3em;
+  letter-spacing: -0.02em;
+}
+
+/* =========================
+   Fixed hover image
+   ========================= */
+
+#hover-preview {
+  position: fixed;
+  top: 160px;
+  right: 120px;
+  width: 420px;
+  aspect-ratio: 4 / 3;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+/* =========================
+   Post page
+   ========================= */
+
+.post-header {
+  max-width: 900px;
+}
+
+.post-header h1 {
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.post-meta {
+  font-family: "00 Hypertext", monospace;
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
+}
+
+.post-body {
+  max-width: 700px;
+  margin-top: 48px;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 80px;
+  font-family: "00 Hypertext", monospace;
+}
+
+/* =========================
+   About page
+   ========================= */
+
+.about {
+  max-width: 700px;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+/* =========================
+   Mobile
+   ========================= */
+
+@media (max-width: 768px) {
+  main {
+    padding: 120px 20px 48px;
+  }
+
+  #hover-preview {
+    display: none;
+  }
+
+  .post-title {
+    font-size: 2.2rem;
+  }
+}
