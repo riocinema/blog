@@ -52,6 +52,19 @@ body {
    Header
    ========================= */
 
+/* Header text/logo + icons should match site text colour */
+.site-header,
+.site-header a,
+.site-header .material-symbols-outlined {
+  color: var(--text);
+}
+
+/* If your logo is an SVG, this helps too */
+.site-header svg {
+  fill: var(--text);
+}
+
+
 .site-header {
   position: fixed;
   top: 0;
