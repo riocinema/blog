@@ -1,34 +1,26 @@
 ---
-title: "Rio Blog"
+layout: layouts/base.njk
+title: Rio Blog
 ---
 
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ title }} | Rio Blog</title>
-  <style>
-    body { font-family: system-ui, sans-serif; margin: 32px; line-height: 1.6; max-width: 72ch; }
-    a { color: inherit; }
-    ul { list-style: none; padding: 0; margin: 0; }
-    li { padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,.12); }
-    .meta { opacity: .7; font-size: 14px; margin-top: 4px; }
-  </style>
-</head>
-<body>
-  <h1>Rio Blog</h1>
+<div class="post-list">
+  {% for post in collections.posts %}
+    {% set words = post.data.title.split(" ") %}
+    {% set last = words.pop() %}
+    {% set prefix = words | join(" ") %}
 
-  <ul>
-    {% for post in collections.posts %}
-      <li>
-        <a href="{{ post.url }}">{{ post.data.title }}</a>
-        <div class="meta">
-          {% if post.data.date %}{{ post.data.date | readableDate }}{% endif %}
-          {% if post.data.author %} • {{ post.data.author }}{% endif %}
-        </div>
-      </li>
-    {% endfor %}
-  </ul>
-</body>
-</html>
+    <a
+      href="{{ post.url }}"
+      class="post-item"
+      data-image="{{ post.data.featuredImage }}"
+    >
+      <div class="post-title">
+        {{ prefix }}
+        <span class="nowrap">
+          {{ last }}
+          <span class="post-date">{{ post.data.date | readableDate }}</span>
+        </span>
+      </div>
+    </a>
+  {% endfor %}
+</div>
