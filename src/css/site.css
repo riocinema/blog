@@ -120,7 +120,7 @@ main {
 /* Keep last word + date together AND control the tiny gap */
 .nowrap {
   display: inline-flex;      /* allows alignment control */
-  gap: 4px;                  /* tiny gap between last word and date */
+  gap: 10px;                  /* tiny gap between last word and date */
   white-space: nowrap;
   align-items: flex-start;   /* top-align date to title */
 }
@@ -137,11 +137,6 @@ main {
   top: 0.06em;               /* nudge DOWN so tops align visually; tweak as needed */
 }
 
-/* Optional: keep date from inheriting hover colour (so only title changes) */
-.post-item:hover .post-date {
-  color: var(--text);
-  opacity: 0.9;
-}
 
 /* =========================
    Fixed hover image
@@ -157,8 +152,8 @@ main {
 #hover-preview {
   position: fixed;
   top: 160px;
-  left: 50%;
-  width: min(900px, 54vw);          /* larger than before */
+  left: 55%;
+  width: min(760px, 46vw);
   aspect-ratio: 4 / 3;
   background-size: cover;
   background-position: center;
@@ -166,7 +161,7 @@ main {
   pointer-events: none;
   transition: opacity 0.2s ease;
   z-index: 10;                       /* behind .post-list (z-index 20) */
-  transform: translateX(-10%);       /* shifts image slightly right while extending left toward center */
+  transform: translateX(-15%);      /* shifts image slightly right while extending left toward center */
 }
 
 /* When JS toggles visibility, ensure the active state is 0.8 opacity */
@@ -250,7 +245,7 @@ main {
 
   .post-date {
     top: 0;               /* remove desktop top alignment tweak */
-    font-size: 0.6em;
+    font-size: 0.5em;
   }
 }
 
@@ -265,6 +260,6 @@ main {
   }
 
   .post-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 }
