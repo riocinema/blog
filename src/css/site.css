@@ -36,7 +36,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
@@ -61,7 +62,7 @@ body {
   align-items: center;
   justify-content: space-between;
   z-index: 100;
-  background: linear-gradient(to bottom, rgba(24,22,23,0.9), rgba(24,22,23,0));
+  background: linear-gradient(to bottom, rgba(24, 22, 23, 0.9), rgba(24, 22, 23, 0));
 }
 
 .site-header img {
@@ -91,8 +92,11 @@ main {
    Homepage list
    ========================= */
 
+/* Ensure list sits ABOVE the hover image */
 .post-list {
   max-width: 1200px;
+  position: relative;
+  z-index: 20; /* above #hover-preview */
 }
 
 .post-item {
@@ -106,38 +110,68 @@ main {
   color: var(--hover);
 }
 
+/* Title: tighter kerning + consistent line height */
 .post-title {
   font-size: clamp(2.2rem, 5vw, 4.2rem);
   line-height: 1.05;
+  letter-spacing: -0.02em; /* tighter kerning (tweak -0.015 to -0.035) */
 }
 
+/* Keep last word + date together AND control the tiny gap */
 .nowrap {
+  display: inline-flex;      /* allows alignment control */
+  gap: 4px;                  /* tiny gap between last word and date */
   white-space: nowrap;
+  align-items: flex-start;   /* top-align date to title */
 }
 
+/* Date: top-aligned + slightly “condensed” */
 .post-date {
-  font-family: "00 Hypertext", monospace;
+  font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.45em;
-  margin-left: 0.3em;
   letter-spacing: -0.02em;
+  line-height: 1;
+  margin-left: 0;            /* gap handled by .nowrap */
+  opacity: 0.9;
+  position: relative;
+  top: 0.06em;               /* nudge DOWN so tops align visually; tweak as needed */
+}
+
+/* Optional: keep date from inheriting hover colour (so only title changes) */
+.post-item:hover .post-date {
+  color: var(--text);
+  opacity: 0.9;
 }
 
 /* =========================
    Fixed hover image
    ========================= */
 
+/*
+  Title/date should appear OVER the image:
+  - Keep hover image behind using lower z-index
+  - Increase size so left edge reaches around mid-page
+  - Set to 80% opacity
+  - Keep fixed regardless of scroll
+*/
 #hover-preview {
   position: fixed;
   top: 160px;
-  right: 120px;
-  width: 420px;
+  left: 50%;
+  width: min(900px, 54vw);          /* larger than before */
   aspect-ratio: 4 / 3;
   background-size: cover;
   background-position: center;
-  opacity: 0;
+  opacity: 0;                        /* default hidden; JS sets visible */
   pointer-events: none;
   transition: opacity 0.2s ease;
-  z-index: 10;
+  z-index: 10;                       /* behind .post-list (z-index 20) */
+  transform: translateX(-10%);       /* shifts image slightly right while extending left toward center */
+}
+
+/* When JS toggles visibility, ensure the active state is 0.8 opacity */
+#hover-preview.is-visible {
+  opacity: 0.8;
 }
 
 /* =========================
@@ -155,7 +189,7 @@ main {
 }
 
 .post-meta {
-  font-family: "00 Hypertext", monospace;
+  font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.85rem;
   letter-spacing: -0.02em;
 }
@@ -171,7 +205,7 @@ main {
   display: flex;
   justify-content: space-between;
   margin-top: 80px;
-  font-family: "00 Hypertext", monospace;
+  font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 /* =========================
@@ -185,9 +219,42 @@ main {
 }
 
 /* =========================
-   Mobile
+   Responsive: auto switch to “mobile layout”
    ========================= */
 
+/*
+  When the desktop window gets too small, we:
+  - hide hover image
+  - reduce padding
+  - slightly adjust type scale
+  - relax the nowrap behaviour so it wraps naturally if needed
+*/
+@media (max-width: 900px) {
+  main {
+    padding: 120px 20px 48px;
+  }
+
+  #hover-preview {
+    display: none;
+  }
+
+  .post-title {
+    font-size: 2.2rem;
+    letter-spacing: -0.01em; /* slightly less tight on small sizes */
+  }
+
+  .nowrap {
+    display: inline;      /* revert from inline-flex */
+    white-space: normal;  /* allow wrap on small screens */
+  }
+
+  .post-date {
+    top: 0;               /* remove desktop top alignment tweak */
+    font-size: 0.6em;
+  }
+}
+
+/* Keep your original breakpoint too (safe) */
 @media (max-width: 768px) {
   main {
     padding: 120px 20px 48px;
