@@ -7,7 +7,7 @@ module.exports = function (eleventyConfig) {
     const d = new Date(value);
     if (isNaN(d)) return value;
     return new Intl.DateTimeFormat("en-GB", {
-      year: "numeric",
+      year: "2-digit",
       month: "2-digit",
       day: "2-digit",
     }).format(d);
