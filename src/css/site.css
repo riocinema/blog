@@ -19,13 +19,21 @@
 }
 
 /* =========================
-   CSS Variables
+   Variables
    ========================= */
 
 :root {
   --bg: #181617;
   --text: #f4ede4;
   --hover: #be0f34;
+
+  --muted: rgba(244, 237, 228, 0.55);
+  --line: rgba(244, 237, 228, 0.22);
+
+  /* Layout tuning */
+  --header-pad-x: 32px;
+  --header-pad-y: 24px;
+  --header-min-h: 110px; /* controls header height (logo can still be taller) */
 }
 
 /* =========================
@@ -49,81 +57,63 @@ body {
 }
 
 /* =========================
-   Header
+   Header (logo left, icons pinned top-right)
    ========================= */
 
-/* Header text/logo + icons should match site text colour */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+
+  /* 2 columns: logo left, actions right */
+  display: grid;
+  grid-template-columns: 1fr auto;
+
+  padding: var(--header-pad-y) var(--header-pad-x);
+  min-height: var(--header-min-h);
+
+  background: linear-gradient(
+    to bottom,
+    rgba(24, 22, 23, 0.9),
+    rgba(24, 22, 23, 0)
+  );
+}
+
+/* Make all header text/icons match text colour */
 .site-header,
 .site-header a,
 .site-header .material-symbols-outlined {
   color: var(--text);
 }
 
-/* If your logo is an SVG, this helps too */
+/* If logo is SVG inline */
 .site-header svg {
-  fill: var(--text);
+  fill: currentColor;
 }
 
-
-.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 24px 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 100;
-  background: linear-gradient(to bottom, rgba(24, 22, 23, 0.9), rgba(24, 22, 23, 0));
-}
-
-.site-header img {
-  height: 80px;
-}
-
-.header-actions {
-  display: flex;
-  gap: 16px;
-}
-
+/* Logo */
 .site-logo {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start; /* logo sits at the top */
   text-decoration: none;
   color: var(--text);
 }
 
 .site-logo img {
-  height: 80px; /* tweak as you like */
+  height: 80px; /* your chosen logo size */
   width: auto;
   display: block;
 }
 
-
-.material-symbols-outlined {
-  font-size: 24px;
-  cursor: pointer;
-  user-select: none;
-  margin-top: - 60px; 
+/* Header actions pinned to the TOP RIGHT */
+.header-actions {
+  justify-self: end;
+  align-self: start;  /* THIS is the key: pin to top edge */
+  display: flex;
+  gap: 16px;
 }
 
-/* =========================
-   Updated hover colour
-   ========================= */
-
-:root {
-  --bg: #181617;
-  --text: #f4ede4;
-  --hover: #be0f34; /* updated red */
-  --muted: rgba(244, 237, 228, 0.55);
-  --line: rgba(244, 237, 228, 0.22);
-}
-
-/* =========================
-   Header icon links (white + hover red + active red)
-   ========================= */
-
+/* Icon link buttons (white, red on hover, red when active) */
 .icon-btn {
   color: var(--text);
   text-decoration: none;
@@ -141,88 +131,20 @@ body {
   color: var(--hover);
 }
 
-/* Ensure material icons inherit */
+/* Material icons inherit currentColor */
 .material-symbols-outlined {
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
   color: currentColor;
 }
-
-/* =========================
-   Search page layout (typed text line, no box)
-   ========================= */
-
-.search-page {
-  max-width: 1200px;
-}
-
-.search-line {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: 14px;
-
-  /* Put it more “central” on desktop */
-  margin-top: 8vh;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--line);
-}
-
-.search-inline-icon {
-  font-size: 24px;
-  opacity: 0.95;
-}
-
-/* Input that looks like text (no rounded corners, no box) */
-.search-input {
-  background: transparent;
-  border: 0;
-  outline: none;
-  color: var(--text);
-
-  font-family: "URW Gothic Demi", system-ui, sans-serif;
-  font-size: clamp(2.0rem, 4.2vw, 3.4rem);
-  line-height: 1.05;
-
-  letter-spacing: -0.02em;
-  padding: 0;
-  margin: 0;
-
-  width: 100%;
-}
-
-.search-input::placeholder {
-  color: var(--muted);
-}
-
-/* Small meta line under search */
-.search-meta {
-  margin-top: 14px;
-  font-family: "00 Hypertext", monospace;
-  font-size: 0.85rem;
-  letter-spacing: -0.02em;
-  opacity: 0.8;
-}
-
-/* Results spacing */
-.search-results {
-  margin-top: 40px;
-}
-
-/* Mobile: search line goes nearer the top */
-@media (max-width: 768px) {
-  .search-line {
-    margin-top: 0;
-  }
-}
-
-
-
 
 /* =========================
    Layout
    ========================= */
 
 main {
-  padding: 160px 32px 64px;
+  padding: 160px var(--header-pad-x) 64px;
 }
 
 /* =========================
@@ -251,15 +173,15 @@ main {
 .post-title {
   font-size: clamp(2.2rem, 5vw, 4.2rem);
   line-height: 1.05;
-  letter-spacing: -0.02em; /* tighter kerning (tweak -0.015 to -0.035) */
+  letter-spacing: -0.02em; /* tweak -0.015 to -0.035 */
 }
 
 /* Keep last word + date together AND control the tiny gap */
 .nowrap {
-  display: inline-flex;      /* allows alignment control */
-  gap: 10px;                  /* tiny gap between last word and date */
+  display: inline-flex;
+  gap: 10px; /* small gap between last word and date */
   white-space: nowrap;
-  align-items: flex-start;   /* top-align date to title */
+  align-items: flex-start; /* top-align date to title */
 }
 
 /* Date: top-aligned + slightly “condensed” */
@@ -268,42 +190,98 @@ main {
   font-size: 0.45em;
   letter-spacing: -0.02em;
   line-height: 1;
-  margin-left: 0;            /* gap handled by .nowrap */
+  margin-left: 0;
   opacity: 0.9;
   position: relative;
-  top: 0.06em;               /* nudge DOWN so tops align visually; tweak as needed */
+  top: 0.06em; /* nudge DOWN a touch so tops align visually; tweak as needed */
 }
-
 
 /* =========================
    Fixed hover image
    ========================= */
 
-/*
-  Title/date should appear OVER the image:
-  - Keep hover image behind using lower z-index
-  - Increase size so left edge reaches around mid-page
-  - Set to 80% opacity
-  - Keep fixed regardless of scroll
-*/
 #hover-preview {
   position: fixed;
   top: 160px;
+
+  /* You can tune these two to make it smaller/shifted:
+     - left controls how far toward centre it begins
+     - width controls overall size
+  */
   left: 55%;
   width: min(760px, 46vw);
+
   aspect-ratio: 4 / 3;
   background-size: cover;
   background-position: center;
-  opacity: 0;                        /* default hidden; JS sets visible */
+  opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
-  z-index: 10;                       /* behind .post-list (z-index 20) */
-  transform: translateX(-15%);      /* shifts image slightly right while extending left toward center */
+  z-index: 10; /* behind .post-list (z-index 20) */
+
+  transform: translateX(-15%);
 }
 
-/* When JS toggles visibility, ensure the active state is 0.8 opacity */
 #hover-preview.is-visible {
   opacity: 0.8;
+}
+
+/* =========================
+   Search page (typed line, no box)
+   ========================= */
+
+.search-page {
+  max-width: 1200px;
+}
+
+.search-line {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 14px;
+
+  margin-top: 8vh;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.search-inline-icon {
+  font-size: 24px;
+  opacity: 0.95;
+  color: var(--text);
+}
+
+/* Input that looks like text */
+.search-input {
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: var(--text);
+
+  font-family: "URW Gothic Demi", system-ui, sans-serif;
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.search-input::placeholder {
+  color: var(--muted);
+}
+
+.search-meta {
+  margin-top: 14px;
+  font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
+  opacity: 0.8;
+}
+
+.search-results {
+  margin-top: 40px;
 }
 
 /* =========================
@@ -351,19 +329,16 @@ main {
 }
 
 /* =========================
-   Responsive: auto switch to “mobile layout”
+   Responsive
    ========================= */
 
-/*
-  When the desktop window gets too small, we:
-  - hide hover image
-  - reduce padding
-  - slightly adjust type scale
-  - relax the nowrap behaviour so it wraps naturally if needed
-*/
 @media (max-width: 900px) {
+  :root {
+    --header-pad-x: 20px;
+  }
+
   main {
-    padding: 120px 20px 48px;
+    padding: 120px var(--header-pad-x) 48px;
   }
 
   #hover-preview {
@@ -372,28 +347,27 @@ main {
 
   .post-title {
     font-size: 2.2rem;
-    letter-spacing: -0.01em; /* slightly less tight on small sizes */
+    letter-spacing: -0.01em;
   }
 
   .nowrap {
-    display: inline;      /* revert from inline-flex */
-    white-space: normal;  /* allow wrap on small screens */
+    display: inline;
+    white-space: normal;
   }
 
   .post-date {
-    top: 0;               /* remove desktop top alignment tweak */
+    top: 0;
     font-size: 0.4em;
+  }
+
+  .search-line {
+    margin-top: 0;
   }
 }
 
-/* Keep your original breakpoint too (safe) */
 @media (max-width: 768px) {
   main {
-    padding: 120px 20px 48px;
-  }
-
-  #hover-preview {
-    display: none;
+    padding: 120px var(--header-pad-x) 48px;
   }
 
   .post-title {
