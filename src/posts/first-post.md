@@ -4,7 +4,7 @@ layout: layouts/post.njk
 author: Rio Cinema
 slug: first-post
 permalink: /2026/01/01/first-post/
-title: First Blog Post
+title: Imagining the Future of Community Cinema
 date: 2026-01-01
 featuredImage: /images/uploads/test.png
 tags:
