@@ -82,11 +82,14 @@ body {
   );
 }
 
-/* Make all header text/icons match text colour */
 .site-header,
-.site-header a,
-.site-header .material-symbols-outlined {
+.site-header a {
   color: var(--text);
+}
+
+/* Ensure the icon glyph always inherits the link colour (hover/active) */
+.icon-btn .material-symbols-outlined {
+  color: currentColor;
 }
 
 /* If logo is SVG inline */
