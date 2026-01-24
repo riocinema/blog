@@ -33,7 +33,8 @@
   /* Layout tuning */
   --header-pad-x: 32px;
   --header-pad-y: 24px;
-  --header-min-h: 110px; /* controls header height (logo can still be taller) */
+  --header-h: 110px;     /* FIX: enforce header height */
+  --logo-h: 90px;        /* FIX: single source of truth for logo height */
 }
 
 /* =========================
@@ -65,12 +66,14 @@ body {
   inset: 0 0 auto 0;
   z-index: 100;
 
-  /* 2 columns: logo left, actions right */
-  display: grid;
-  grid-template-columns: 1fr auto;
+  /* FIX: make header height deterministic */
+  height: var(--header-h);
+
+  /* Keep logo aligned left */
+  display: flex;
+  align-items: flex-start;
 
   padding: var(--header-pad-y) var(--header-pad-x);
-  min-height: var(--header-min-h);
 
   background: linear-gradient(
     to bottom,
@@ -91,26 +94,37 @@ body {
   fill: currentColor;
 }
 
+/* FIX: prevent “any header img” rules from ever blowing up */
+.site-header img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* Logo */
 .site-logo {
   display: inline-flex;
-  align-items: flex-start; /* logo sits at the top */
+  align-items: flex-start;
   text-decoration: none;
   color: var(--text);
 }
 
+/* FIX: hard-cap logo size */
 .site-logo img {
-  height: 80px; /* your chosen logo size */
+  height: var(--logo-h);
+  max-height: var(--logo-h);
   width: auto;
-  display: block;
 }
 
-/* Header actions pinned to the TOP RIGHT */
+/* FIX: icons pinned to absolute top-right (won’t drift if header changes) */
 .header-actions {
-  justify-self: end;
-  align-self: start;  /* THIS is the key: pin to top edge */
+  position: absolute;
+  top: var(--header-pad-y);
+  right: var(--header-pad-x);
+
   display: flex;
   gap: 16px;
+  align-items: center;
 }
 
 /* Icon link buttons (white, red on hover, red when active) */
@@ -144,18 +158,18 @@ body {
    ========================= */
 
 main {
-  padding: 160px var(--header-pad-x) 64px;
+  /* FIX: ensure content clears the fixed header */
+  padding: calc(var(--header-h) + 50px) var(--header-pad-x) 64px;
 }
 
 /* =========================
    Homepage list
    ========================= */
 
-/* Ensure list sits ABOVE the hover image */
 .post-list {
   max-width: 1200px;
   position: relative;
-  z-index: 20; /* above #hover-preview */
+  z-index: 20;
 }
 
 .post-item {
@@ -169,22 +183,19 @@ main {
   color: var(--hover);
 }
 
-/* Title: tighter kerning + consistent line height */
 .post-title {
   font-size: clamp(2.2rem, 5vw, 4.2rem);
   line-height: 1.05;
-  letter-spacing: -0.02em; /* tweak -0.015 to -0.035 */
+  letter-spacing: -0.02em;
 }
 
-/* Keep last word + date together AND control the tiny gap */
 .nowrap {
   display: inline-flex;
-  gap: 10px; /* small gap between last word and date */
+  gap: 10px;
   white-space: nowrap;
-  align-items: flex-start; /* top-align date to title */
+  align-items: flex-start;
 }
 
-/* Date: top-aligned + slightly “condensed” */
 .post-date {
   font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.45em;
@@ -193,7 +204,7 @@ main {
   margin-left: 0;
   opacity: 0.9;
   position: relative;
-  top: 0.06em; /* nudge DOWN a touch so tops align visually; tweak as needed */
+  top: 0.06em;
 }
 
 /* =========================
@@ -204,10 +215,6 @@ main {
   position: fixed;
   top: 160px;
 
-  /* You can tune these two to make it smaller/shifted:
-     - left controls how far toward centre it begins
-     - width controls overall size
-  */
   left: 55%;
   width: min(760px, 46vw);
 
@@ -217,7 +224,7 @@ main {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
-  z-index: 10; /* behind .post-list (z-index 20) */
+  z-index: 10;
 
   transform: translateX(-15%);
 }
@@ -251,7 +258,6 @@ main {
   color: var(--text);
 }
 
-/* Input that looks like text */
 .search-input {
   background: transparent;
   border: 0;
@@ -335,10 +341,8 @@ main {
 @media (max-width: 900px) {
   :root {
     --header-pad-x: 20px;
-  }
-
-  main {
-    padding: 120px var(--header-pad-x) 48px;
+    --header-h: 100px;
+    --logo-h: 70px;
   }
 
   #hover-preview {
@@ -366,12 +370,7 @@ main {
 }
 
 @media (max-width: 768px) {
-  main {
-    padding: 120px var(--header-pad-x) 48px;
-  }
-
   .post-title {
     font-size: 2rem;
   }
 }
- 
