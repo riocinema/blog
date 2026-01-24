@@ -62,12 +62,8 @@ body {
    ========================= */
 
 .site-header {
-  position: fixed;
-  inset: 0 0 auto 0;
+  position: relative; /* was fixed */
   z-index: 100;
-
-  /* FIX: make header height deterministic */
-  height: var(--header-h);
 
   /* Keep logo aligned left */
   display: flex;
@@ -156,13 +152,28 @@ body {
   color: currentColor;
 }
 
+.site-footer {
+  position: fixed;
+  right: var(--header-pad-x);
+  bottom: 18px;
+
+  font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  opacity: 0.85;
+
+  z-index: 50;
+  pointer-events: none;
+}
+
+
 /* =========================
    Layout
    ========================= */
 
 main {
-  /* FIX: ensure content clears the fixed header */
-  padding: calc(var(--header-h) + 50px) var(--header-pad-x) 64px;
+  padding: 48px var(--header-pad-x) 64px; /* was 160px ... */
 }
 
 /* =========================
@@ -170,7 +181,9 @@ main {
    ========================= */
 
 .post-list {
-  max-width: 1200px;
+  /* Let it expand, but stop before the hover image */
+  margin-top: 18px; /* tweak 10–30px */
+  max-width: calc(100% - min(720px, 44vw) - 24px);
   position: relative;
   z-index: 20;
 }
@@ -216,20 +229,25 @@ main {
 
 #hover-preview {
   position: fixed;
-  top: 160px;
 
-  left: 55%;
-  width: min(760px, 46vw);
+  /* Slightly higher than the first title */
+  top: 135px;
 
+  /* Match the same padding used by text */
+  right: var(--header-pad-x);
+
+  /* Tune size here */
+  width: min(720px, 44vw);
   aspect-ratio: 4 / 3;
+
   background-size: cover;
   background-position: center;
+
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
-  z-index: 10;
 
-  transform: translateX(-15%);
+  z-index: 10; /* behind .post-list */
 }
 
 #hover-preview.is-visible {
