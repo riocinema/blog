@@ -109,6 +109,115 @@ body {
 }
 
 /* =========================
+   Updated hover colour
+   ========================= */
+
+:root {
+  --bg: #181617;
+  --text: #f4ede4;
+  --hover: #be0f34; /* updated red */
+  --muted: rgba(244, 237, 228, 0.55);
+  --line: rgba(244, 237, 228, 0.22);
+}
+
+/* =========================
+   Header icon links (white + hover red + active red)
+   ========================= */
+
+.icon-btn {
+  color: var(--text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.icon-btn:hover {
+  color: var(--hover);
+}
+
+.icon-btn.is-active {
+  color: var(--hover);
+}
+
+/* Ensure material icons inherit */
+.material-symbols-outlined {
+  color: currentColor;
+}
+
+/* =========================
+   Search page layout (typed text line, no box)
+   ========================= */
+
+.search-page {
+  max-width: 1200px;
+}
+
+.search-line {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 14px;
+
+  /* Put it more “central” on desktop */
+  margin-top: 8vh;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.search-inline-icon {
+  font-size: 24px;
+  opacity: 0.95;
+}
+
+/* Input that looks like text (no rounded corners, no box) */
+.search-input {
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: var(--text);
+
+  font-family: "URW Gothic Demi", system-ui, sans-serif;
+  font-size: clamp(2.0rem, 4.2vw, 3.4rem);
+  line-height: 1.05;
+
+  letter-spacing: -0.02em;
+  padding: 0;
+  margin: 0;
+
+  width: 100%;
+}
+
+.search-input::placeholder {
+  color: var(--muted);
+}
+
+/* Small meta line under search */
+.search-meta {
+  margin-top: 14px;
+  font-family: "00 Hypertext", monospace;
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
+  opacity: 0.8;
+}
+
+/* Results spacing */
+.search-results {
+  margin-top: 40px;
+}
+
+/* Mobile: search line goes nearer the top */
+@media (max-width: 768px) {
+  .search-line {
+    margin-top: 0;
+  }
+}
+
+
+
+
+/* =========================
    Layout
    ========================= */
 
