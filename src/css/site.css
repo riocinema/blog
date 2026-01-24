@@ -95,7 +95,7 @@ body {
 }
 
 .site-logo img {
-  height: 32px; /* tweak as you like */
+  height: 100px; /* tweak as you like */
   width: auto;
   display: block;
 }
