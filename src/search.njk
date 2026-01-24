@@ -1,0 +1,26 @@
+---
+layout: layouts/base.njk
+title: Search
+permalink: /search/index.html
+---
+
+<section class="search-page">
+  <div class="search-line">
+    <span class="material-symbols-outlined search-inline-icon" aria-hidden="true">search</span>
+    <input
+      id="searchInput"
+      class="search-input"
+      type="search"
+      placeholder="Search Rio Forever Blog…"
+      autocomplete="off"
+      spellcheck="false"
+      aria-label="Search Rio Forever Blog"
+    />
+  </div>
+
+  <div id="searchMeta" class="search-meta" aria-live="polite"></div>
+
+  <div id="searchResults" class="post-list search-results"></div>
+</section>
+
+<script src="/js/search-page.js" defer></script>
