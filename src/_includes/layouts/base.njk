@@ -25,6 +25,22 @@
         <span class="material-symbols-outlined">info</span>
       </a>
     </div>
+
+{# layouts/base.njk (inside your header) #}
+
+{% set isSearch = page.url and page.url.startsWith("/search") %}
+{% set isAbout = page.url and page.url.startsWith("/about") %}
+
+<div class="header-actions">
+  <a class="icon-btn {{ isSearch ? 'is-active' : '' }}" href="/search/" aria-label="Search">
+    <span class="material-symbols-outlined">search</span>
+  </a>
+
+  <a class="icon-btn {{ isAbout ? 'is-active' : '' }}" href="/about/" aria-label="About">
+    <span class="material-symbols-outlined">info</span>
+  </a>
+</div>
+
   </header>
 
   <div id="hover-preview"></div>
