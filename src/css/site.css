@@ -409,36 +409,37 @@ main {
 }
 
 /* =========================
-   Featured image + caption (caption OUTSIDE left of post column)
+   Featured image + caption
+   Caption sits OUTSIDE LEFT of the post column,
+   image stays EXACTLY the post column width,
+   caption bottom aligns to image bottom.
    ========================= */
 
-/* Break the figure wider than the post column so caption can sit outside */
 .post-featured.figure--inline {
-  display: grid;
-  grid-template-columns: var(--cap-w) 100%; /* caption | image (exactly post width) */
-  gap: var(--gap);
-  align-items: end;
-
-  width: calc(100% + var(--gap) + var(--cap-w));
-  margin: 28px 0 0 calc(-1 * (var(--gap) + var(--cap-w)));
+  position: relative;
+  width: 100%;
+  margin: 28px 0 0;
 }
 
-/* Place items */
+.post-featured .figure__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .post-featured .figure__cap {
-  grid-column: 1;
+  position: absolute;
+  left: calc(-1 * (var(--cap-w) + var(--gap)));
+  bottom: 0; /* bottom-align caption to image bottom */
+
+  width: var(--cap-w);
+  margin: 0;
+
   text-align: right;
   font-family: system-ui, sans-serif;
   font-size: 0.85em; /* slightly smaller than body */
   line-height: 1.3;
   opacity: 0.85;
-  margin: 0;
-}
-
-.post-featured .figure__img {
-  grid-column: 2;
-  width: 100%;
-  height: auto;
-  display: block;
 }
 
 /* =========================
@@ -452,35 +453,37 @@ main {
 }
 
 /* =========================
-   Body figures + captions (caption OUTSIDE left of post column)
+   Body figures + captions
+   Caption sits OUTSIDE LEFT of the post column,
+   image stays EXACTLY the post column width,
+   caption bottom aligns to image bottom.
    ========================= */
 
 .figure.figure--inline {
-  display: grid;
-  grid-template-columns: var(--cap-w) 100%; /* caption | image (exactly post width) */
-  gap: var(--gap);
-  align-items: end;
-
-  width: calc(100% + var(--gap) + var(--cap-w));
-  margin: 28px 0 calc(28px) calc(-1 * (var(--gap) + var(--cap-w)));
+  position: relative;
+  width: 100%;
+  margin: 28px 0;
 }
 
-/* Place items */
+.figure__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .figure__cap {
-  grid-column: 1;
+  position: absolute;
+  left: calc(-1 * (var(--cap-w) + var(--gap)));
+  bottom: 0; /* bottom-align caption to image bottom */
+
+  width: var(--cap-w);
+  margin: 0;
+
   text-align: right;
   font-family: system-ui, sans-serif;
   font-size: 0.85em; /* slightly smaller than body */
   line-height: 1.3;
   opacity: 0.85;
-  margin: 0;
-}
-
-.figure__img {
-  grid-column: 2;
-  width: 100%;
-  height: auto;
-  display: block;
 }
 
 /* =========================
@@ -529,23 +532,13 @@ main {
     font-size: 0.4em;
   }
 
-  /* On mobile, do NOT break out — stack caption under image */
-  .post-featured.figure--inline,
-  .figure.figure--inline {
-    width: 100%;
-    margin-left: 0;
-    grid-template-columns: 1fr;
-  }
-
+  /* On mobile, stack caption under image (inside column) */
   .post-featured .figure__cap,
   .figure__cap {
-    grid-column: auto;
+    position: static;
+    width: auto;
+    margin-top: 10px;
     text-align: left;
-  }
-
-  .post-featured .figure__img,
-  .figure__img {
-    grid-column: auto;
   }
 }
 
