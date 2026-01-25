@@ -336,36 +336,115 @@ main {
    Post page
    ========================= */
 
+.post {
+  /* Title starts at same “baseline zone” as homepage list */
+  margin-top: 18px;
+}
+
+/* Center the whole post content, but keep text left-aligned */
+.post-header,
+.post-featured,
+.post-body,
+.post-nav {
+  width: min(900px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Title matches homepage titles */
 .post-header {
-  max-width: 900px;
+  max-width: none; /* we’re using the shared width rule above */
 }
 
-.post-header h1 {
-  font-size: clamp(2.4rem, 6vw, 4.6rem);
+.post-header h1,
+.post-title {
+  font-size: clamp(2.2rem, 5vw, 4.2rem); /* same as homepage .post-title */
   line-height: 1.05;
-  margin-bottom: 16px;
-}
-
-.post-meta {
-  font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.85rem;
   letter-spacing: -0.02em;
+  margin: 0; /* remove extra top spacing */
 }
 
+/* Inline “last word + meta” behaviour like homepage */
+.post-title .nowrap {
+  display: inline-flex;
+  gap: 10px;              /* small gap like homepage */
+  white-space: nowrap;
+  align-items: flex-start; /* top-align */
+}
+
+/* Date + author block that sits where the homepage date sits */
+.post-meta-inline {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.45em;      /* same scale as homepage .post-date */
+  letter-spacing: -0.02em;
+  line-height: 1;
+
+  /* This little gap helps the “two lines = roughly one title-height” feel */
+  row-gap: 0.12em;
+
+  opacity: 0.9;
+  position: relative;
+  top: 0.06em;            /* same nudge as homepage */
+}
+
+.post-author {
+  opacity: 0.95;
+}
+
+/* Featured image + body match widths */
+.post-featured {
+  margin-top: 28px;
+  margin-bottom: 0;
+}
+
+.post-featured img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Body text width = image width (same container width) */
 .post-body {
-  max-width: 700px;
-  margin-top: 48px;
+  margin-top: 38px;
   font-family: system-ui, sans-serif;
   line-height: 1.6;
 }
 
+/* Prev/Next links */
 .post-nav {
   display: flex;
   justify-content: space-between;
+  gap: 24px;
   margin-top: 80px;
+
   font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+.post-nav-link {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.post-nav-link:hover {
+  color: var(--hover);
+}
+
+/* Mobile: allow wrap and keep things readable */
+@media (max-width: 900px) {
+  .post-title .nowrap {
+    display: inline;
+    white-space: normal;
+  }
+
+  .post-meta-inline {
+    top: 0;
+    font-size: 0.4em;
+  }
+}
 /* =========================
    About page
    ========================= */
