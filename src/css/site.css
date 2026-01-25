@@ -415,12 +415,25 @@ main {
 /* The figure spans wider than the post column:
    post column + caption column (+ gap) */
 .post-featured.figure--inline {
-  width: min(calc(var(--post-w) + var(--cap-w) + var(--gap)), 100%);
-  margin: 28px auto 0; /* centre the whole unit */
   display: grid;
-  grid-template-columns: var(--cap-w) min(var(--post-w), 100%);
+  grid-template-columns: var(--cap-w) 1fr; /* caption | image */
   gap: var(--gap);
-  align-items: end; /* bottom-align caption with image */
+  align-items: end;
+  margin: 28px 0 0;
+  width: 100%;
+}
+
+/* Force placement */
+.post-featured .figure__cap {
+  grid-column: 1;
+  text-align: right;
+}
+
+.post-featured .figure__img {
+  grid-column: 2;
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Image stays exactly the post column width */
@@ -455,12 +468,25 @@ main {
    ========================= */
 
 .figure.figure--inline {
-  width: min(calc(var(--post-w) + var(--cap-w) + var(--gap)), 100%);
-  margin: 28px auto; /* centre the whole unit */
   display: grid;
-  grid-template-columns: var(--cap-w) min(var(--post-w), 100%);
+  grid-template-columns: var(--cap-w) 1fr; /* caption | image */
   gap: var(--gap);
   align-items: end;
+  margin: 28px 0;
+  width: 100%;
+}
+
+/* Force placement */
+.figure__cap {
+  grid-column: 1;
+  text-align: right;
+}
+
+.figure__img {
+  grid-column: 2;
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .figure__img {
