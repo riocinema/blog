@@ -46,12 +46,14 @@ layout: layouts/base.njk
       </span>
     </h1>
   </header>
-
-  {% if featuredImage %}
-    <figure class="post-featured">
-      <img src="{{ featuredImage }}" alt="{{ featuredImageAlt or '' }}">
-    </figure>
-  {% endif %}
+{% if featuredImage %}
+  <figure class="figure figure--featured">
+    <img class="figure__img" src="{{ featuredImage }}" alt="{{ featuredImageAlt or '' }}">
+    {% if featuredImageCaption %}
+      <figcaption class="figure__cap">{{ featuredImageCaption }}</figcaption>
+    {% endif %}
+  </figure>
+{% endif %}
 
   <div class="post-body">
     {{ content | safe }}
