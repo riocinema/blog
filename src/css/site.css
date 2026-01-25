@@ -341,65 +341,61 @@ main {
 /* Shared centred column for post content */
 :root {
   --post-w: 900px; /* tweak if you want narrower/wider */
-  --cap-w: 180px;  /* caption column width (small, 4–5 words/line) */
+  --cap-w: 180px;  /* caption column width */
   --gap: 18px;
 }
 
-/* Whole post is centred; content stays left-aligned */
+/* One true centred column */
 .post {
-  max-width: var(--post-w);
-  margin: 18px auto 0; /* Title starts at same “baseline zone” as homepage list */
+  width: min(var(--post-w), 100%);
+  margin: 18px auto 0;
 }
 
-/* Keep all main post sections aligned to the same column */
+/* Everything in the post uses the same width and alignment */
 .post-header,
-.post-featured,
 .post-body,
 .post-nav {
-  width: min(var(--post-w), 100%);
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
 
 /* Title matches homepage titles */
 .post-header {
-  max-width: none; /* we’re using the shared width rule above */
+  max-width: none;
 }
 
 .post-header h1,
 .post-title {
-  font-size: clamp(2.2rem, 5vw, 4.2rem); /* same as homepage .post-title */
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
-  margin: 0; /* remove extra top spacing */
+  margin: 0;
 }
 
 /* Inline “last word + meta” behaviour like homepage */
 .post-title .nowrap {
   display: inline-flex;
-  gap: 10px;              /* small gap like homepage */
+  gap: 10px;
   white-space: nowrap;
-  align-items: flex-start; /* top-align */
+  align-items: flex-start;
 }
 
-/* ===== Post meta (date + author) stacked, matching title height ===== */
-
+/* Date + author block stacked */
 .post-meta-inline {
   display: inline-flex;
   flex-direction: column;
   gap: 0;
-  margin-left: 0.35em; /* tiny gap after last word */
-
+  margin-left: 0.35em;
   font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.40em;   /* controls meta size relative to title */
-  line-height: 1;      /* keep tight */
+  font-size: 0.40em;
+  line-height: 1;
   letter-spacing: -0.02em;
-
+  vertical-align: top;
   position: relative;
-  top: 0.06em;         /* tweak 0.04–0.10em if needed */
+  top: 0.06em; /* tweak if needed */
 }
 
-/* Date + author are the same size */
 .post-meta-inline .post-date,
 .post-meta-inline .post-author {
   display: block;
@@ -408,44 +404,88 @@ main {
   opacity: 0.9;
 }
 
-.post-meta-inline .post-author {
+.post-author {
   opacity: 0.95;
 }
 
-/* Featured image + body match widths */
-.post-featured {
-  margin-top: 28px;
-  margin-bottom: 0;
+/* =========================
+   Featured image (image + caption inline)
+   ========================= */
+
+/* Make featured figure behave like your body figures */
+.post-featured.figure--inline {
+  display: grid;
+  grid-template-columns: 1fr var(--cap-w);
+  gap: var(--gap);
+  align-items: end; /* bottom-align caption with image */
+  margin: 28px 0 0;
+  width: 100%;
 }
 
-.post-featured img {
-  display: block;
-  width: 100%;   /* fills the post column, not the whole page */
+.post-featured .figure__img {
+  width: 100%;
   height: auto;
+  display: block;
 }
 
-/* Body text width = image width (same container width) */
+.post-featured .figure__cap {
+  font-family: system-ui, sans-serif;
+  font-size: 0.95em;
+  line-height: 1.3;
+  opacity: 0.9;
+  max-width: var(--cap-w);
+  margin: 0; /* ensure it doesn't drop below */
+}
+
+/* =========================
+   Body text
+   ========================= */
+
 .post-body {
   margin-top: 38px;
   font-family: system-ui, sans-serif;
   line-height: 1.9;
 }
 
-/* Prev/Next links */
-.post-nav {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  margin-top: 80px;
-
-  font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
+/* Body figures: image left + caption right (bottom-aligned) */
+.figure.figure--inline {
+  display: grid;
+  grid-template-columns: 1fr var(--cap-w);
+  gap: var(--gap);
+  align-items: end;
+  margin: 28px 0;
+  max-width: 100%;
 }
 
-/* ===== Post nav typography ===== */
+.figure__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.figure__cap {
+  font-family: system-ui, sans-serif;
+  font-size: 0.95em;
+  line-height: 1.3;
+  opacity: 0.9;
+  max-width: var(--cap-w);
+  margin: 0;
+}
+
+/* =========================
+   Prev/Next links
+   ========================= */
+
+.post-nav {
+  display: flex;
+  gap: 24px;
+  margin-top: 80px;
+}
+
 .post-nav-link {
   font-family: "neue-haas-grotesk-text", sans-serif;
   font-weight: 700;
-  font-size: 16px; /* try 17px if you want slightly louder */
+  font-size: 17px;
   color: var(--text);
   text-decoration: none;
 }
@@ -454,39 +494,17 @@ main {
   color: var(--hover);
 }
 
-/* =========================
-   Body figures: image left + caption right (bottom-aligned)
-   ========================= */
-
-.figure.figure--inline {
-  display: grid;
-  grid-template-columns: 1fr var(--cap-w);
-  gap: var(--gap);
-  align-items: end; /* bottom align caption with image */
-
-  margin: 28px 0;
-  width: 100%;      /* stays within the post column */
-  max-width: 100%;
+/* Force alignment even when only one link exists */
+.post-nav-link--prev {
+  margin-right: auto;
 }
 
-.figure__img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-.figure__cap {
-  font-family: system-ui, sans-serif; /* same as body */
-  font-size: 0.95em;                 /* 1–2px smaller vibe */
-  line-height: 1.3;
-  opacity: 0.9;
-
-  max-width: var(--cap-w);
+.post-nav-link--next {
+  margin-left: auto;
 }
 
 /* =========================
-   Mobile: allow wrap and stack captions
+   Mobile
    ========================= */
 
 @media (max-width: 900px) {
@@ -500,10 +518,12 @@ main {
     font-size: 0.4em;
   }
 
+  .post-featured.figure--inline,
   .figure.figure--inline {
     grid-template-columns: 1fr;
   }
 
+  .post-featured .figure__cap,
   .figure__cap {
     max-width: none;
   }
