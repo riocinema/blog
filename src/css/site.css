@@ -182,6 +182,7 @@ main {
 
 .post-list {
   /* Let it expand, but stop before the hover image */
+  width: 100%;
   margin-top: 18px; /* tweak 10–30px */
   max-width: calc(100% - min(720px, 44vw) - 24px);
   position: relative;
