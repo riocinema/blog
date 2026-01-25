@@ -21,4 +21,7 @@ document.querySelectorAll(".post-item").forEach(item => {
   item.addEventListener("blur", () => {
     preview.style.opacity = 0;
   });
+
+  document.body.classList.add("has-hover-preview");
+  
 });
