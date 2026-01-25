@@ -463,6 +463,42 @@ main {
     font-size: 0.4em;
   }
 }
+
+/* Body figures: image left + caption right (bottom-aligned) */
+.figure.figure--inline {
+  display: grid;
+  grid-template-columns: 1fr 180px; /* caption narrow */
+  gap: 18px;
+  align-items: end; /* bottom align caption with image */
+  margin: 28px 0;
+  max-width: 100%;
+}
+
+.figure__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.figure__cap {
+  font-family: system-ui, sans-serif; /* same as body */
+  font-size: 0.95em;                 /* 1–2px smaller vibe */
+  line-height: 1.3;
+  opacity: 0.9;
+  max-width: 180px;
+}
+
+/* Mobile: stack caption under image */
+@media (max-width: 900px) {
+  .figure.figure--inline {
+    grid-template-columns: 1fr;
+  }
+  .figure__cap {
+    max-width: none;
+  }
+}
+
+
 /* =========================
    About page
    ========================= */
