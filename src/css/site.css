@@ -435,7 +435,12 @@ main {
   font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+/* ===== Post nav typography ===== */
+
 .post-nav-link {
+  font-family: "neue-haas-grotesk-text", sans-serif;
+  font-weight: 700;
+  font-size: 16px; /* try 16px or 17px */
   color: var(--text);
   text-decoration: none;
 }
