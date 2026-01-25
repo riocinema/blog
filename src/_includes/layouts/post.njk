@@ -46,8 +46,9 @@ layout: layouts/base.njk
       </span>
     </h1>
   </header>
+
 {% if featuredImage %}
-  <figure class="figure figure--featured">
+  <figure class="post-featured figure figure--inline">
     <img class="figure__img" src="{{ featuredImage }}" alt="{{ featuredImageAlt or '' }}">
     {% if featuredImageCaption %}
       <figcaption class="figure__cap">{{ featuredImageCaption }}</figcaption>
@@ -59,13 +60,13 @@ layout: layouts/base.njk
     {{ content | safe }}
   </div>
 
-  <nav class="post-nav" aria-label="Post navigation">
-    {% if older %}
-      <a class="post-nav-link" href="{{ older.url }}">← Previous Post</a>
-    {% endif %}
+ <nav class="post-nav" aria-label="Post navigation">
+  {% if older %}
+    <a class="post-nav-link post-nav-link--prev" href="{{ older.url }}">← Previous Post</a>
+  {% endif %}
 
-    {% if newer %}
-      <a class="post-nav-link" href="{{ newer.url }}">Next Post →</a>
-    {% endif %}
-  </nav>
+  {% if newer %}
+    <a class="post-nav-link post-nav-link--next" href="{{ newer.url }}">Next Post →</a>
+  {% endif %}
+</nav>
 </article>
