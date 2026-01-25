@@ -56,6 +56,10 @@ layout: layouts/base.njk
   </figure>
 {% endif %}
 
+{% if excerpt %}
+  <p class="post-excerpt">{{ excerpt }}</p>
+{% endif %}
+
   <div class="post-body">
     {{ content | safe }}
   </div>
