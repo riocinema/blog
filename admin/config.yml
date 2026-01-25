@@ -25,6 +25,7 @@ collections:
       - { label: "Excerpt", name: "excerpt", widget: "text", required: false }
       - { label: "Featured image", name: "featuredImage", widget: "image", required: false }
       - { label: "Featured image alt text", name: "featuredImageAlt", widget: "string", required: false }
+      - { label: "Featured image caption", name: "featuredImageCaption", widget: "string", required: false }
       - { label: "Tags", name: "tags", widget: "list", required: false }
       - { label: "Body", name: "body", widget: "markdown" }
       - label: "Optional button link"
