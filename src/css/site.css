@@ -373,22 +373,33 @@ main {
 }
 
 /* Date + author block that sits where the homepage date sits */
+/* ===== Post meta (date + author) stacked, matching title height ===== */
+
 .post-meta-inline {
   display: inline-flex;
   flex-direction: column;
-  align-items: flex-start;
-
+  gap: 0;
+  margin-left: 0.35em;              /* tiny gap after last word */
   font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.45em;      /* same scale as homepage .post-date */
+  font-size: 0.40em;                /* <-- controls meta size relative to title */
+  line-height: 1;                   /* keep tight */
   letter-spacing: -0.02em;
+  vertical-align: top;
+}
+
+/* Date + author are the same size */
+.post-meta-inline .post-date,
+.post-meta-inline .post-author {
+  display: block;
+  font-size: 1em;
   line-height: 1;
-
-  /* This little gap helps the “two lines = roughly one title-height” feel */
-  row-gap: 0.12em;
-
   opacity: 0.9;
+}
+
+/* Nudge to align the TOP of the meta block with the title cap height */
+.post-meta-inline {
   position: relative;
-  top: 0.06em;            /* same nudge as homepage */
+  top: 0.06em;                      /* tweak 0.04–0.10em if needed */
 }
 
 .post-author {
