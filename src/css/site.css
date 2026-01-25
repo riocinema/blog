@@ -30,11 +30,15 @@
   --muted: rgba(244, 237, 228, 0.55);
   --line: rgba(244, 237, 228, 0.22);
 
+
+
+
   /* Layout tuning */
   --header-pad-x: 32px;
   --header-pad-y: 24px;
   --header-h: 110px;     /* FIX: enforce header height */
   --logo-h: 90px;        /* FIX: single source of truth for logo height */
+  --hover-img-w: min(720px, 44vw);
 }
 
 /* =========================
@@ -184,9 +188,13 @@ main {
   /* Let it expand, but stop before the hover image */
   width: 100%;
   margin-top: 18px; /* tweak 10–30px */
-  max-width: calc(100% - min(720px, 44vw) - 24px);
+  max-width: none;
   position: relative;
   z-index: 20;
+}
+
+.has-hover-preview .post-list {
+  max-width: calc(100% - var(--hover-img-w) - 24px);
 }
 
 .post-item {
