@@ -185,20 +185,22 @@ main {
    ========================= */
 
 .post-list {
-  /* Let it expand, but stop before the hover image */
+  /* FULL WIDTH ALWAYS (no reserving space for hover image) */
   width: 100%;
   margin-top: 18px; /* tweak 10–30px */
   max-width: none;
   position: relative;
-  z-index: 20;
+  z-index: 20; /* keep ABOVE hover image */
 }
 
+/* IMPORTANT: remove the “stop before the hover image” behaviour */
 .has-hover-preview .post-list {
-  max-width: calc(100% - var(--hover-img-w) - 24px);
+  max-width: none;
 }
 
 .post-item {
   display: block;
+  width: 100%;
   text-decoration: none;
   color: var(--text);
   margin-bottom: 28px;
@@ -209,6 +211,10 @@ main {
 }
 
 .post-title {
+  display: block;
+  width: 100%;
+  max-width: none;
+
   font-size: clamp(2.2rem, 5vw, 4.2rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -256,7 +262,7 @@ main {
   pointer-events: none;
   transition: opacity 0.2s ease;
 
-  z-index: 10; /* behind .post-list */
+  z-index: 5; /* ensure it sits UNDER the text */
 }
 
 #hover-preview.is-visible {
@@ -289,13 +295,14 @@ main {
   color: var(--text);
 }
 
+/* FIX: your CSS was broken here (duplicate selector + missing closing brace).
+   Keeping your intended styling, but valid. */
 .search-input {
   background: transparent;
   border: 0;
   outline: none;
   color: var(--text);
 
-.search-input {
   font-family: "neue-haas-grotesk-text", sans-serif;
   font-weight: 700;
 
@@ -369,7 +376,7 @@ main {
   line-height: 1.6;
 }
 
-   .about h1 {
+.about h1 {
   font-family: "neue-haas-grotesk-text", sans-serif;
   font-weight: 700;
   font-size: clamp(2.4rem, 6vw, 4.6rem);
