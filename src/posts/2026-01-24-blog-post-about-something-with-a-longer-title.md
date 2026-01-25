@@ -3,6 +3,7 @@ title: Blog Post About Something With a Longer Title
 date: 2026-01-24
 author: Ror Brown
 featuredImage: /images/uploads/screenshot-2021-01-31-at-14.19.48.png
+featuredImageCaption: Figure 1. Rio Cinema Auditorium as taken from the Circle, in 1989.
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elit 
