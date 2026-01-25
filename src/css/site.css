@@ -227,15 +227,17 @@ main {
   align-items: flex-start;
 }
 
+/* ===== Homepage date: match post meta sizing ===== */
+
 .post-date {
   font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.45em;
+  font-size: 0.40em;      /* match post page */
   letter-spacing: -0.02em;
   line-height: 1;
   margin-left: 0;
   opacity: 0.9;
   position: relative;
-  top: 0.06em;
+  top: 0.06em;           /* same cap-height alignment */
 }
 
 /* =========================
