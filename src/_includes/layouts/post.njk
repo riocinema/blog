@@ -2,35 +2,58 @@
 layout: layouts/base.njk
 ---
 
-<article>
-  <header class="post-header">
-    <h1>{{ title }}</h1>
+{# Split title so last word stays with the date (like homepage) #}
+{% set words = title.split(" ") %}
+{% set last = words.pop() %}
+{% set prefix = words | join(" ") %}
 
-    <div class="post-meta">
-      {{ date | readableDate }}
-      {% if author %}<br>by {{ author }}{% endif %}
-    </div>
+{# Find this post’s index in the collection by URL #}
+{% set idx = -1 %}
+{% for p in collections.posts %}
+  {% if p.url == page.url %}
+    {% set idx = loop.index0 %}
+  {% endif %}
+{% endfor %}
+
+{# collections.posts is newest-first (because you reverse()’d it)
+   Older = idx + 1, Newer = idx - 1 #}
+{% set older = (idx != -1 and collections.posts[idx + 1]) ? collections.posts[idx + 1] : null %}
+{% set newer = (idx > 0) ? collections.posts[idx - 1] : null %}
+
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">
+      {{ prefix }}
+      <span class="nowrap">
+        {{ last }}
+
+        <span class="post-meta-inline" aria-label="Post meta">
+          <span class="post-date">{{ date | readableDate }}</span>
+          {% if author %}
+            <span class="post-author">{{ author }}</span>
+          {% endif %}
+        </span>
+      </span>
+    </h1>
   </header>
 
   {% if featuredImage %}
-    <img src="{{ featuredImage }}" alt="{{ featuredImageAlt or '' }}">
+    <figure class="post-featured">
+      <img src="{{ featuredImage }}" alt="{{ featuredImageAlt or '' }}">
+    </figure>
   {% endif %}
 
   <div class="post-body">
     {{ content | safe }}
   </div>
 
-  <nav class="post-nav">
-    {% if collections.posts[collections.posts.indexOf(page) - 1] %}
-      <a href="{{ collections.posts[collections.posts.indexOf(page) - 1].url }}">
-        ← Previous
-      </a>
+  <nav class="post-nav" aria-label="Post navigation">
+    {% if older %}
+      <a class="post-nav-link" href="{{ older.url }}">← Previous Post</a>
     {% endif %}
 
-    {% if collections.posts[collections.posts.indexOf(page) + 1] %}
-      <a href="{{ collections.posts[collections.posts.indexOf(page) + 1].url }}">
-        Next →
-      </a>
+    {% if newer %}
+      <a class="post-nav-link" href="{{ newer.url }}">Next Post →</a>
     {% endif %}
   </nav>
 </article>
