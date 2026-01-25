@@ -338,17 +338,25 @@ main {
    Post page
    ========================= */
 
-.post {
-  /* Title starts at same “baseline zone” as homepage list */
-  margin-top: 18px;
+/* Shared centred column for post content */
+:root {
+  --post-w: 900px; /* tweak if you want narrower/wider */
+  --cap-w: 180px;  /* caption column width (small, 4–5 words/line) */
+  --gap: 18px;
 }
 
-/* Center the whole post content, but keep text left-aligned */
+/* Whole post is centred; content stays left-aligned */
+.post {
+  max-width: var(--post-w);
+  margin: 18px auto 0; /* Title starts at same “baseline zone” as homepage list */
+}
+
+/* Keep all main post sections aligned to the same column */
 .post-header,
 .post-featured,
 .post-body,
 .post-nav {
-  width: min(900px, 100%);
+  width: min(var(--post-w), 100%);
   margin-left: auto;
   margin-right: auto;
 }
@@ -374,19 +382,21 @@ main {
   align-items: flex-start; /* top-align */
 }
 
-/* Date + author block that sits where the homepage date sits */
 /* ===== Post meta (date + author) stacked, matching title height ===== */
 
 .post-meta-inline {
   display: inline-flex;
   flex-direction: column;
   gap: 0;
-  margin-left: 0.35em;              /* tiny gap after last word */
+  margin-left: 0.35em; /* tiny gap after last word */
+
   font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.40em;                /* <-- controls meta size relative to title */
-  line-height: 1;                   /* keep tight */
+  font-size: 0.40em;   /* controls meta size relative to title */
+  line-height: 1;      /* keep tight */
   letter-spacing: -0.02em;
-  vertical-align: top;
+
+  position: relative;
+  top: 0.06em;         /* tweak 0.04–0.10em if needed */
 }
 
 /* Date + author are the same size */
@@ -398,13 +408,7 @@ main {
   opacity: 0.9;
 }
 
-/* Nudge to align the TOP of the meta block with the title cap height */
-.post-meta-inline {
-  position: relative;
-  top: 0.06em;                      /* tweak 0.04–0.10em if needed */
-}
-
-.post-author {
+.post-meta-inline .post-author {
   opacity: 0.95;
 }
 
@@ -416,7 +420,7 @@ main {
 
 .post-featured img {
   display: block;
-  width: 100%;
+  width: 100%;   /* fills the post column, not the whole page */
   height: auto;
 }
 
@@ -438,11 +442,10 @@ main {
 }
 
 /* ===== Post nav typography ===== */
-
 .post-nav-link {
   font-family: "neue-haas-grotesk-text", sans-serif;
   font-weight: 700;
-  font-size: 16px; /* try 16px or 17px */
+  font-size: 16px; /* try 17px if you want slightly louder */
   color: var(--text);
   text-decoration: none;
 }
@@ -451,7 +454,41 @@ main {
   color: var(--hover);
 }
 
-/* Mobile: allow wrap and keep things readable */
+/* =========================
+   Body figures: image left + caption right (bottom-aligned)
+   ========================= */
+
+.figure.figure--inline {
+  display: grid;
+  grid-template-columns: 1fr var(--cap-w);
+  gap: var(--gap);
+  align-items: end; /* bottom align caption with image */
+
+  margin: 28px 0;
+  width: 100%;      /* stays within the post column */
+  max-width: 100%;
+}
+
+.figure__img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.figure__cap {
+  font-family: system-ui, sans-serif; /* same as body */
+  font-size: 0.95em;                 /* 1–2px smaller vibe */
+  line-height: 1.3;
+  opacity: 0.9;
+
+  max-width: var(--cap-w);
+}
+
+/* =========================
+   Mobile: allow wrap and stack captions
+   ========================= */
+
 @media (max-width: 900px) {
   .post-title .nowrap {
     display: inline;
@@ -462,42 +499,15 @@ main {
     top: 0;
     font-size: 0.4em;
   }
-}
 
-/* Body figures: image left + caption right (bottom-aligned) */
-.figure.figure--inline {
-  display: grid;
-  grid-template-columns: 1fr 180px; /* caption narrow */
-  gap: 18px;
-  align-items: end; /* bottom align caption with image */
-  margin: 28px 0;
-  max-width: 100%;
-}
-
-.figure__img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.figure__cap {
-  font-family: system-ui, sans-serif; /* same as body */
-  font-size: 0.95em;                 /* 1–2px smaller vibe */
-  line-height: 1.3;
-  opacity: 0.9;
-  max-width: 180px;
-}
-
-/* Mobile: stack caption under image */
-@media (max-width: 900px) {
   .figure.figure--inline {
     grid-template-columns: 1fr;
   }
+
   .figure__cap {
     max-width: none;
   }
 }
-
 
 /* =========================
    About page
