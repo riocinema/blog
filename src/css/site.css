@@ -38,7 +38,7 @@
   --header-pad-y: 24px;
   --header-h: 110px;     /* FIX: enforce header height */
   --logo-h: 90px;        /* FIX: single source of truth for logo height */
-  --hover-img-w: min(52vw);
+  --hover-img-w: min(900px, 48vw);
 }
 
 /* =========================
@@ -254,7 +254,7 @@ main {
   right: var(--header-pad-x);
 
   /* Tune size here */
-  width: min(900px, 52vw);
+  width: min(900px, 48vw);
   aspect-ratio: 4 / 3;
 
   background-size: cover;
