@@ -341,7 +341,7 @@ main {
 /* Shared centred column for post content */
 :root {
   --post-w: 900px; /* tweak if you want narrower/wider */
-  --cap-w: 180px;  /* caption column width */
+  --cap-w: 130px;  /* caption column width */
   --gap: 18px;
 }
 
