@@ -268,7 +268,8 @@ main {
    ========================= */
 
 .search-page {
-  max-width: 1200px;
+  max-width: none;
+  width: 100%; 
 }
 
 .search-line {
@@ -318,6 +319,7 @@ main {
 
 .search-results {
   margin-top: 40px;
+  width: 100%;
 }
 
 /* =========================
