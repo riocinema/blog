@@ -17,8 +17,18 @@ layout: layouts/base.njk
 
 {# collections.posts is newest-first (because you reverse()’d it)
    Older = idx + 1, Newer = idx - 1 #}
-{% set older = (idx != -1 and collections.posts[idx + 1]) ? collections.posts[idx + 1] : null %}
-{% set newer = (idx > 0) ? collections.posts[idx - 1] : null %}
+{% set older = null %}
+{% set newer = null %}
+
+{% if idx != -1 %}
+  {% if collections.posts[idx + 1] %}
+    {% set older = collections.posts[idx + 1] %}
+  {% endif %}
+
+  {% if idx > 0 and collections.posts[idx - 1] %}
+    {% set newer = collections.posts[idx - 1] %}
+  {% endif %}
+{% endif %}
 
 <article class="post">
   <header class="post-header">
