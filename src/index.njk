@@ -16,10 +16,10 @@ title: Rio Forever Blog
     >
       <div class="post-title">
         {{ prefix }}
-        <span class="nowrap">
-          {{ last }}
-          <span class="post-date">{{ post.data.date | readableDate }}</span>
-        </span>
+<span class="nowrap">
+  <span class="title-text">{{ last }}</span>
+  <span class="post-date">{{ post.data.date | readableDate }}</span>
+</span>
       </div>
     </a>
   {% endfor %}
