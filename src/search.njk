@@ -4,6 +4,12 @@ title: Search Rio Forever Blog
 permalink: /search/index.html
 ---
 
+const metaBits = [];
+if (item.date) metaBits.push(item.date);
+if (item.author) metaBits.push(`by ${item.author}`);
+const meta = metaBits.length ? `<div class="meta">${metaBits.join(" · ")}</div>` : "";
+
+
 <section class="search-page">
   <div class="search-line">
     <span class="material-symbols-outlined search-inline-icon" aria-hidden="true">search</span>
