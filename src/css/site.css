@@ -733,11 +733,11 @@ body[data-a11y="1"] .icon-btn.is-active {
 }
 
 /* -----------------------------------------
-   Titles + underline + hover highlight (words only)
+   Titles + underline + hover highlight (WORDS ONLY)
+   (a11y mode)
    ----------------------------------------- */
 
-/* Make post-title behave like inline content so underline/highlight
-   only sit under the words (not full line width). */
+/* Keep typography on the container, but DO NOT underline it */
 html.a11y .post-title,
 body.a11y .post-title,
 html.accessibility .post-title,
@@ -747,14 +747,22 @@ body[data-a11y="1"] .post-title {
   color: #000 !important;
   font-family: "neue-haas-grotesk-text", system-ui, sans-serif;
   font-weight: 800;
+  line-height: 1.18;
+}
 
-  display: inline; /* critical: stops underline/highlight spanning empty space */
-  line-height: 1.18; /* gives breathing room between lines */
-
+/* Underline ONLY the title words (prevents date/author underlining) */
+html.a11y .title-text,
+body.a11y .title-text,
+html.accessibility .title-text,
+body.accessibility .title-text,
+html[data-a11y="1"] .title-text,
+body[data-a11y="1"] .title-text {
+  display: inline;
   text-decoration-line: underline;
   text-decoration-color: var(--a11y-blue);
   text-decoration-thickness: 3px;   /* desktop */
-  text-underline-offset: 0.34em;    /* pushes underline down */
+  text-underline-offset: 0.34em;    /* push underline down */
+  text-decoration-skip-ink: none;
 
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
@@ -762,25 +770,45 @@ body[data-a11y="1"] .post-title {
 
 /* Slightly thinner underline on mobile */
 @media (max-width: 900px) {
-  html.a11y .post-title,
-  body.a11y .post-title,
-  html.accessibility .post-title,
-  body.accessibility .post-title,
-  html[data-a11y="1"] .post-title,
-  body[data-a11y="1"] .post-title {
+  html.a11y .title-text,
+  body.a11y .title-text,
+  html.accessibility .title-text,
+  body.accessibility .title-text,
+  html[data-a11y="1"] .title-text,
+  body[data-a11y="1"] .title-text {
     text-decoration-thickness: 2px;
   }
 }
 
-/* Hover/active behaviour: yellow highlight, keep text black (no red) */
-html.a11y .post-item:hover .post-title,
-body.a11y .post-item:hover .post-title,
-html.accessibility .post-item:hover .post-title,
-body.accessibility .post-item:hover .post-title,
-html[data-a11y="1"] .post-item:hover .post-title,
-body[data-a11y="1"] .post-item:hover .post-title {
+/* Hover highlight: apply ONLY to title words, not date/meta */
+html.a11y .post-item:hover .title-text,
+body.a11y .post-item:hover .title-text,
+html.accessibility .post-item:hover .title-text,
+body.accessibility .post-item:hover .title-text,
+html[data-a11y="1"] .post-item:hover .title-text,
+body[data-a11y="1"] .post-item:hover .title-text {
   background: var(--a11y-yellow);
   color: #000 !important;
+
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Safety: never underline date/author in a11y mode */
+html.a11y .post-date,
+body.a11y .post-date,
+html.accessibility .post-date,
+body.accessibility .post-date,
+html[data-a11y="1"] .post-date,
+body[data-a11y="1"] .post-date,
+html.a11y .post-author,
+body.a11y .post-author,
+html.accessibility .post-author,
+body.accessibility .post-author,
+html[data-a11y="1"] .post-author,
+body[data-a11y="1"] .post-author {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
 }
 
 /* -----------------------------------------
@@ -939,6 +967,17 @@ body[data-a11y="1"] .site-footer {
   border: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
+
+   /* Kill legacy hover on whole title in a11y mode */
+html.a11y .post-item:hover .post-title,
+body.a11y .post-item:hover .post-title,
+html.accessibility .post-item:hover .post-title,
+body.accessibility .post-item:hover .post-title,
+html[data-a11y="1"] .post-item:hover .post-title,
+body[data-a11y="1"] .post-item:hover .post-title {
+  background: transparent !important;
+  color: #000 !important;
+}
 
   /* and keep it pushed to the bottom on short pages */
   margin-top: auto;
