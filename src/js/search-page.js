@@ -65,6 +65,7 @@ function buildHomeStyleItem(post) {
   const prefix = words.join(" ");
 
   const date = formatDateShort(post.date);
+  const author = (post.author || "").toString().trim();
 
   const a = document.createElement("a");
   a.href = post.url || "#";
@@ -74,7 +75,7 @@ function buildHomeStyleItem(post) {
   const div = document.createElement("div");
   div.className = "post-title";
 
-  // prefix + nowrap(last + date)
+  // prefix + nowrap(last + date/author)
   div.append(document.createTextNode(prefix ? prefix + " " : ""));
 
   const nowrap = document.createElement("span");
@@ -89,7 +90,22 @@ function buildHomeStyleItem(post) {
   dateSpan.textContent = date ? date : "";
 
   nowrap.appendChild(lastSpan);
-  if (date) nowrap.appendChild(dateSpan);
+
+  if (date || author) {
+    const metaSpan = document.createElement("span");
+    metaSpan.className = "post-meta-inline";
+
+    if (date) metaSpan.appendChild(dateSpan);
+
+    if (author) {
+      const authorSpan = document.createElement("span");
+      authorSpan.className = "post-author";
+      authorSpan.textContent = `by ${author}`;
+      metaSpan.appendChild(authorSpan);
+    }
+
+    nowrap.appendChild(metaSpan);
+  }
 
   div.appendChild(nowrap);
   a.appendChild(div);
