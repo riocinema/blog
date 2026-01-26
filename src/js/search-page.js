@@ -128,11 +128,11 @@ async function init() {
     }
 
     if (!items.length) {
-      metaEl.textContent = "No results.";
+      metaEl.textContent = "NO RESULTS.";
       return;
     }
 
-    metaEl.textContent = `${items.length} result${items.length === 1 ? "" : "s"}.`;
+    metaEl.textContent = `${items.length} RESULT${items.length === 1 ? "" : "S"}.`;
 
     for (const p of items) {
       resultsEl.appendChild(buildHomeStyleItem(p));
