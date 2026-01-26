@@ -19,9 +19,10 @@
   {% set isAbout = page.url and page.url.startsWith("/about") %}
 
   <header class="site-header">
-    <a class="site-logo" href="/" aria-label="Home">
-      <img src="/images/RFlogo-demo.png" alt="Rio Forever">
-    </a>
+<a class="site-logo" href="/">
+  <img class="logo-normal" src="/img/RFlogo-demo.png" alt="Rio Forever">
+  <img class="logo-a11y" src="/img/RFlogo-demo-access.png" alt="Rio Forever">
+</a>
 
     <div class="header-actions">
       <a class="icon-btn{% if isSearch %} is-active{% endif %}" href="/search/" aria-label="Search">
