@@ -143,24 +143,25 @@ async function init() {
     // event delegation (recommended), you won't need anything here.
   }
 
-  function applySearch(q, posts) {
-    const terms = tokenize(q);
-    if (!terms.length) return [];
+function applySearch(q, posts) {
+  const terms = tokenize(q);
+  if (!terms.length) return [];
 
-    const scored = posts
-      .map((p) => ({ p, s: scorePost(p, terms) }))
-      .filter((x) => x.s > 0);
+  const scored = posts
+    .map((p) => ({ p, s: scorePost(p, terms) }))
+    // AND behaviour: every term/phrase must match somewhere (scorePost gives points if it matches)
+    .filter((x) => x.s > 0 && terms.every((t) => scorePost(x.p, [t]) > 0));
 
-    // Sort by relevance first, then newest
-    scored.sort((a, b) => {
-      if (b.s !== a.s) return b.s - a.s;
-      const da = a.p.date ? new Date(a.p.date).getTime() : 0;
-      const db = b.p.date ? new Date(b.p.date).getTime() : 0;
-      return db - da;
-    });
+  // Sort by relevance first, then newest
+  scored.sort((a, b) => {
+    if (b.s !== a.s) return b.s - a.s;
+    const da = a.p.date ? new Date(a.p.date).getTime() : 0;
+    const db = b.p.date ? new Date(b.p.date).getTime() : 0;
+    return db - da;
+  });
 
-    return scored.map((x) => x.p);
-  }
+  return scored.map((x) => x.p);
+}
 
   async function onInput() {
     const q = input.value || "";
