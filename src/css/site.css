@@ -119,6 +119,9 @@ body {
   width: auto;
 }
 
+/* Default: show normal logo, hide a11y logo */
+.site-logo .logo-a11y { display: none; }
+
 /* FIX: icons pinned to absolute top-right (won’t drift if header changes) */
 .header-actions {
   position: absolute;
@@ -987,6 +990,19 @@ body[data-a11y="1"] .post-item:hover .post-title {
 .site-logo .logo-a11y { display: none; }
 
 /* When a11y mode is on, swap images */
+body.a11y .site-logo .logo-normal,
+body.accessibility .site-logo .logo-normal,
+body[data-a11y="1"] .site-logo .logo-normal {
+  display: none !important;
+}
+
+body.a11y .site-logo .logo-a11y,
+body.accessibility .site-logo .logo-a11y,
+body[data-a11y="1"] .site-logo .logo-a11y {
+  display: block !important;
+}
+
+   /* A11y mode: swap logos */
 body.a11y .site-logo .logo-normal,
 body.accessibility .site-logo .logo-normal,
 body[data-a11y="1"] .site-logo .logo-normal {
