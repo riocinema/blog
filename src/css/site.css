@@ -979,6 +979,26 @@ body[data-a11y="1"] .post-item:hover .post-title {
   color: #000 !important;
 }
 
+   /* -----------------------------------------
+   Logo swap (CSS-only)
+   ----------------------------------------- */
+.site-logo { position: relative; }
+
+.site-logo .logo-a11y { display: none; }
+
+/* When a11y mode is on, swap images */
+body.a11y .site-logo .logo-normal,
+body.accessibility .site-logo .logo-normal,
+body[data-a11y="1"] .site-logo .logo-normal {
+  display: none !important;
+}
+
+body.a11y .site-logo .logo-a11y,
+body.accessibility .site-logo .logo-a11y,
+body[data-a11y="1"] .site-logo .logo-a11y {
+  display: block !important;
+}
+
   /* and keep it pushed to the bottom on short pages */
   margin-top: auto;
 }
