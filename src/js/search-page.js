@@ -86,7 +86,7 @@ function buildHomeStyleItem(post) {
   nowrap.className = "nowrap";
 
   const lastSpan = document.createElement("span");
-  lastSpan.className = "title-lastword";
+  lastSpan.className = "title-text";
   lastSpan.textContent = last;
 
   const dateSpan = document.createElement("span");
