@@ -620,3 +620,326 @@ main {
     font-size: 2rem;
   }
 }
+
+/* =========================================
+   Accessibility mode overrides
+   (paste at END of site.css)
+   ========================================= */
+
+/* Match whichever hook your JS uses */
+html.a11y,
+body.a11y,
+html.accessibility,
+body.accessibility,
+html[data-a11y="1"],
+body[data-a11y="1"] {
+  --bg: #ffffff;
+  --text: #000000;
+  --muted: rgba(0, 0, 0, 0.75);
+  --line: rgba(0, 0, 0, 0.25);
+
+  /* classic link blue + highlight yellow */
+  --a11y-blue: #0000ee;
+  --a11y-yellow: #ffeb3b;
+}
+
+/* Kill any lingering dark areas / gradients everywhere */
+html.a11y,
+body.a11y,
+html.accessibility,
+body.accessibility,
+html[data-a11y="1"],
+body[data-a11y="1"] {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+html.a11y body,
+body.a11y,
+html.accessibility body,
+body.accessibility,
+html[data-a11y="1"] body,
+body[data-a11y="1"] {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+/* IMPORTANT: prevent dark html background showing through on short pages
+   (your JS toggles class on BODY, so html may stay dark in base mode) */
+body.a11y,
+body.accessibility,
+body[data-a11y="1"] {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body.a11y main,
+body.accessibility main,
+body[data-a11y="1"] main {
+  flex: 1;
+  background: #fff !important;
+}
+
+/* Header gradient -> plain white */
+html.a11y .site-header,
+body.a11y .site-header,
+html.accessibility .site-header,
+body.accessibility .site-header,
+html[data-a11y="1"] .site-header,
+body[data-a11y="1"] .site-header {
+  background: #fff !important;
+}
+
+/* Hide hover-preview entirely in a11y mode */
+html.a11y #hover-preview,
+body.a11y #hover-preview,
+html.accessibility #hover-preview,
+body.accessibility #hover-preview,
+html[data-a11y="1"] #hover-preview,
+body[data-a11y="1"] #hover-preview {
+  display: none !important;
+}
+
+/* -----------------------------------------
+   Icons: black always; yellow highlight without shifting
+   ----------------------------------------- */
+html.a11y .icon-btn,
+body.a11y .icon-btn,
+html.accessibility .icon-btn,
+body.accessibility .icon-btn,
+html[data-a11y="1"] .icon-btn,
+body[data-a11y="1"] .icon-btn {
+  color: #000 !important;
+  padding: 2px 6px;          /* keep constant so nothing moves */
+  border-radius: 0 !important;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+html.a11y .icon-btn:hover,
+body.a11y .icon-btn:hover,
+html.accessibility .icon-btn:hover,
+body.accessibility .icon-btn:hover,
+html[data-a11y="1"] .icon-btn:hover,
+body[data-a11y="1"] .icon-btn:hover,
+html.a11y .icon-btn.is-active,
+body.a11y .icon-btn.is-active,
+html.accessibility .icon-btn.is-active,
+body.accessibility .icon-btn.is-active,
+html[data-a11y="1"] .icon-btn.is-active,
+body[data-a11y="1"] .icon-btn.is-active {
+  background: var(--a11y-yellow) !important;
+}
+
+/* -----------------------------------------
+   Titles + underline + hover highlight (words only)
+   ----------------------------------------- */
+
+/* Make post-title behave like inline content so underline/highlight
+   only sit under the words (not full line width). */
+html.a11y .post-title,
+body.a11y .post-title,
+html.accessibility .post-title,
+body.accessibility .post-title,
+html[data-a11y="1"] .post-title,
+body[data-a11y="1"] .post-title {
+  color: #000 !important;
+  font-family: "neue-haas-grotesk-text", system-ui, sans-serif;
+  font-weight: 800;
+
+  display: inline; /* critical: stops underline/highlight spanning empty space */
+  line-height: 1.18; /* gives breathing room between lines */
+
+  text-decoration-line: underline;
+  text-decoration-color: var(--a11y-blue);
+  text-decoration-thickness: 3px;   /* desktop */
+  text-underline-offset: 0.34em;    /* pushes underline down */
+
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Slightly thinner underline on mobile */
+@media (max-width: 900px) {
+  html.a11y .post-title,
+  body.a11y .post-title,
+  html.accessibility .post-title,
+  body.accessibility .post-title,
+  html[data-a11y="1"] .post-title,
+  body[data-a11y="1"] .post-title {
+    text-decoration-thickness: 2px;
+  }
+}
+
+/* Hover/active behaviour: yellow highlight, keep text black (no red) */
+html.a11y .post-item:hover .post-title,
+body.a11y .post-item:hover .post-title,
+html.accessibility .post-item:hover .post-title,
+body.accessibility .post-item:hover .post-title,
+html[data-a11y="1"] .post-item:hover .post-title,
+body[data-a11y="1"] .post-item:hover .post-title {
+  background: var(--a11y-yellow);
+  color: #000 !important;
+}
+
+/* -----------------------------------------
+   Break the date/meta OUT of the “last word” wrap (CSS-only)
+   ----------------------------------------- */
+
+/* Neutralise the nowrap wrapper in a11y mode so it can't force “last word + meta” */
+html.a11y .nowrap,
+body.a11y .nowrap,
+html.accessibility .nowrap,
+body.accessibility .nowrap,
+html[data-a11y="1"] .nowrap,
+body[data-a11y="1"] .nowrap {
+  display: contents !important; /* unwrap without changing templates */
+  white-space: normal !important;
+}
+
+/* Homepage/search date: under title, black, no underline, no highlight */
+html.a11y .post-date,
+body.a11y .post-date,
+html.accessibility .post-date,
+body.accessibility .post-date,
+html[data-a11y="1"] .post-date,
+body[data-a11y="1"] .post-date {
+  display: block;
+  margin-top: 10px; /* CHANGED: was 6px */
+  color: #000 !important;
+  text-decoration: none !important;
+  background: transparent !important;
+}
+
+/* Post page meta block: left-aligned UNDER title, tight spacing */
+html.a11y .post-meta-inline,
+body.a11y .post-meta-inline,
+html.accessibility .post-meta-inline,
+body.accessibility .post-meta-inline,
+html[data-a11y="1"] .post-meta-inline,
+body[data-a11y="1"] .post-meta-inline {
+  display: block !important;
+  margin: 10px 0 0 0 !important; /* CHANGED: was 6px */
+  gap: 2px !important;
+  color: #000 !important;
+  text-decoration: none !important;
+  background: transparent !important;
+  vertical-align: baseline !important;
+  position: static !important; /* prevents drifting beside title */
+}
+
+html.a11y .post-meta-inline .post-date,
+html.a11y .post-meta-inline .post-author,
+body.a11y .post-meta-inline .post-date,
+body.a11y .post-meta-inline .post-author,
+html.accessibility .post-meta-inline .post-date,
+html.accessibility .post-meta-inline .post-author,
+body.accessibility .post-meta-inline .post-date,
+body.accessibility .post-meta-inline .post-author,
+html[data-a11y="1"] .post-meta-inline .post-date,
+html[data-a11y="1"] .post-meta-inline .post-author,
+body[data-a11y="1"] .post-meta-inline .post-date,
+body[data-a11y="1"] .post-meta-inline .post-author {
+  color: #000 !important;
+  text-decoration: none !important;
+  background: transparent !important;
+}
+
+/* Make sure date/meta never get the yellow hover background */
+html.a11y .post-date,
+html.a11y .post-meta-inline,
+html.a11y .post-meta-inline * ,
+body.a11y .post-date,
+body.a11y .post-meta-inline,
+body.a11y .post-meta-inline * {
+  background: transparent !important;
+}
+
+/* -----------------------------------------
+   Captions: force BELOW images in a11y mode (all viewports)
+   ----------------------------------------- */
+html.a11y .post-featured .figure__cap,
+html.a11y .figure__cap,
+body.a11y .post-featured .figure__cap,
+body.a11y .figure__cap,
+html.accessibility .post-featured .figure__cap,
+html.accessibility .figure__cap,
+body.accessibility .post-featured .figure__cap,
+body.accessibility .figure__cap,
+html[data-a11y="1"] .post-featured .figure__cap,
+html[data-a11y="1"] .figure__cap,
+body[data-a11y="1"] .post-featured .figure__cap,
+body[data-a11y="1"] .figure__cap {
+  position: static !important;
+  left: auto !important;
+  bottom: auto !important;
+  width: auto !important;
+  margin-top: 10px !important;
+  text-align: left !important;
+  color: #000 !important;
+}
+
+/* -----------------------------------------
+   Prev/Next hover highlight
+   ----------------------------------------- */
+html.a11y .post-nav-link:hover,
+body.a11y .post-nav-link:hover,
+html.accessibility .post-nav-link:hover,
+body.accessibility .post-nav-link:hover,
+html[data-a11y="1"] .post-nav-link:hover,
+body[data-a11y="1"] .post-nav-link:hover {
+  background: var(--a11y-yellow);
+  color: #000 !important;
+}
+
+/* -----------------------------------------
+   Search: icon black, input black, underline always blue
+   ----------------------------------------- */
+html.a11y .search-inline-icon,
+body.a11y .search-inline-icon,
+html.accessibility .search-inline-icon,
+body.accessibility .search-inline-icon,
+html[data-a11y="1"] .search-inline-icon,
+body[data-a11y="1"] .search-inline-icon {
+  color: #000 !important;
+  opacity: 1 !important;
+}
+
+html.a11y .search-input,
+body.a11y .search-input,
+html.accessibility .search-input,
+body.accessibility .search-input,
+html[data-a11y="1"] .search-input,
+body[data-a11y="1"] .search-input {
+  color: rgba(0, 0, 0, 0.88) !important;
+  caret-color: var(--a11y-blue);
+}
+
+html.a11y .search-line,
+body.a11y .search-line,
+html.accessibility .search-line,
+body.accessibility .search-line,
+html[data-a11y="1"] .search-line,
+body[data-a11y="1"] .search-line {
+  border-bottom: 3px solid var(--a11y-blue) !important;
+}
+
+/* -----------------------------------------
+   Footer: black text on white highlight, no outline
+   ----------------------------------------- */
+html.a11y .site-footer,
+body.a11y .site-footer,
+html.accessibility .site-footer,
+body.accessibility .site-footer,
+html[data-a11y="1"] .site-footer,
+body[data-a11y="1"] .site-footer {
+  background: #fff !important;
+  color: #000 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+
+  /* and keep it pushed to the bottom on short pages */
+  margin-top: auto;
+}
