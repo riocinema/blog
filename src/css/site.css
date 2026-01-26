@@ -163,7 +163,7 @@ body {
 
   font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.85rem;
-  letter-spacing: 0em;
+  letter-spacing: 0.5em;
   color: var(--text);
   opacity: 0.85;
 
@@ -325,7 +325,7 @@ main {
   margin-top: 14px;
   font-family: "00 Hypertext", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.85rem;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.5em;
   opacity: 0.8;
 }
 
