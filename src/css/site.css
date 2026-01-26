@@ -119,9 +119,18 @@ body {
   width: auto;
 }
 
-/* Default: show normal logo, hide a11y logo */
-.site-logo .logo-a11y { display: none; }
+/* Logo swap (default = normal, a11y = inverted) */
+.site-logo .logo-a11y {
+  display: none;
+}
 
+body.a11y .site-logo .logo-normal {
+  display: none;
+}
+
+body.a11y .site-logo .logo-a11y {
+  display: block;
+}
 /* FIX: icons pinned to absolute top-right (won’t drift if header changes) */
 .header-actions {
   position: absolute;
