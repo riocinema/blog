@@ -35,15 +35,15 @@ layout: layouts/base.njk
     <h1 class="post-title">
       {{ prefix }}
       <span class="nowrap">
-        {{ last }}
+  <span class="title-text">{{ last }}</span>
 
-        <span class="post-meta-inline" aria-label="Post meta">
-          <span class="post-date">{{ date | readableDate }}</span>
-          {% if author %}
-            <span class="post-author">by {{ author }}</span>
-          {% endif %}
-        </span>
-      </span>
+  <span class="post-meta-inline" aria-label="Post meta">
+    <span class="post-date">{{ date | readableDate }}</span>
+    {% if author %}
+      <span class="post-author">by {{ author }}</span>
+    {% endif %}
+  </span>
+</span>
     </h1>
   </header>
 
