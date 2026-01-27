@@ -637,18 +637,9 @@ main {
 @media (max-width: 900px) {
   .post-list .post-date,
   #searchResults .post-date {
-    font-size: inherit;
-    line-height: inherit;
-  }
-}
-
-/* Normal mode: mobile homepage/search title should match post page title sizing */
-@media (max-width: 900px) {
-  .post-list .post-title,
-  #searchResults .post-title {
-    font-size: clamp(2.2rem, 5vw, 4.2rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
+    font-size: 0.40em;
+    line-height: 1;
+    top: 0.06em;
   }
 }
 
@@ -986,8 +977,8 @@ body[data-a11y="1"] .post-header .post-meta-inline {
   display: block !important;
   margin: 14px 0 0 0 !important;
   gap: 2px !important;
-  font-size: 1.10rem !important;
-  line-height: 1.25 !important;
+  font-size: 1.6rem !important;
+  line-height: 1.3 !important;
   text-decoration: none !important;
   background: transparent !important;
   position: static !important;
@@ -1183,10 +1174,22 @@ body[data-a11y="1"] .post-body {
   html[data-a11y="1"] #searchResults .post-date,
   body[data-a11y="1"] #searchResults .post-date {
     margin-top: 10px !important;     /* closer to title */
-    font-size: 1.3rem !important;    /* smaller on mobile */
+    font-size: 1.3rem !important;
     line-height: 1.2 !important;
   }
-  /* A11y mobile: slightly more space between date and author on post page only */
+
+  /* ADD THIS: A11y mobile post page meta matches homepage/search date size */
+  html.a11y .post-header .post-meta-inline,
+  body.a11y .post-header .post-meta-inline,
+  html.accessibility .post-header .post-meta-inline,
+  body.accessibility .post-header .post-meta-inline,
+  html[data-a11y="1"] .post-header .post-meta-inline,
+  body[data-a11y="1"] .post-header .post-meta-inline {
+    font-size: 1.3rem !important;
+    line-height: 1.3 !important;
+  }
+
+  /* keep your existing author spacing rule here too, if you have it */
   html.a11y .post-header .post-meta-inline .post-author,
   body.a11y .post-header .post-meta-inline .post-author,
   html.accessibility .post-header .post-meta-inline .post-author,
@@ -1195,5 +1198,4 @@ body[data-a11y="1"] .post-body {
   body[data-a11y="1"] .post-header .post-meta-inline .post-author {
     margin-top: 8px !important;
   }
-
 }
