@@ -795,7 +795,7 @@ body[data-a11y="1"] .post-title {
   font-weight: 800;
 
   /* your tuning knob */
-  line-height: 1.22;
+  line-height: 1.32;
 
   /* ensure nothing accidentally underlines the container */
   text-decoration: none !important;
