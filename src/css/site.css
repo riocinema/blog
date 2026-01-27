@@ -730,7 +730,7 @@ body[data-a11y="1"] .site-logo .logo-a11y {
 }
 
 /* -----------------------------------------
-   Icons: black always; yellow highlight WITH padding, no shifting
+   Icons (a11y): match normal spacing, keep yellow highlight, add blue underline
    ----------------------------------------- */
 html.a11y .icon-btn,
 body.a11y .icon-btn,
@@ -740,8 +740,10 @@ html[data-a11y="1"] .icon-btn,
 body[data-a11y="1"] .icon-btn {
   color: #000 !important;
 
-  /* stable sizing across states */
-  padding: 2px 6px;
+  /* KEY FIX: remove padding so buttons don't push apart */
+  padding: 0 !important;
+  margin: 0 !important;
+
   border-radius: 0 !important;
   box-sizing: border-box;
 
@@ -750,9 +752,11 @@ body[data-a11y="1"] .icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  text-decoration: none !important;
 }
 
-/* highlight behind, does not affect layout */
+/* Yellow highlight "padding" lives on a pseudo-element so it DOESN'T affect spacing */
 html.a11y .icon-btn::before,
 body.a11y .icon-btn::before,
 html.accessibility .icon-btn::before,
@@ -761,11 +765,34 @@ html[data-a11y="1"] .icon-btn::before,
 body[data-a11y="1"] .icon-btn::before {
   content: "";
   position: absolute;
-  inset: 0;
+
+  /* visual padding (tweak if you want more/less yellow) */
+  inset: -4px -6px;
+
   background: transparent;
   z-index: -1;
 }
 
+/* Blue underline to show they're links (always visible in a11y mode) */
+html.a11y .icon-btn::after,
+body.a11y .icon-btn::after,
+html.accessibility .icon-btn::after,
+body.accessibility .icon-btn::after,
+html[data-a11y="1"] .icon-btn::after,
+body[data-a11y="1"] .icon-btn::after {
+  content: "";
+  position: absolute;
+
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+
+  height: 3px;
+  background: var(--a11y-blue);
+  pointer-events: none;
+}
+
+/* Hover/active highlight (underline stays) */
 html.a11y .icon-btn:hover::before,
 body.a11y .icon-btn:hover::before,
 html.accessibility .icon-btn:hover::before,
@@ -780,7 +807,6 @@ html[data-a11y="1"] .icon-btn.is-active::before,
 body[data-a11y="1"] .icon-btn.is-active::before {
   background: var(--a11y-yellow) !important;
 }
-
 /* -----------------------------------------
    Titles: typography on container, underline/highlight on WORDS ONLY
    ----------------------------------------- */
