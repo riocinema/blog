@@ -1049,3 +1049,16 @@ body[data-a11y="1"] .post-header .title-text:hover {
   background-image: none !important;
   background-color: transparent !important;
 }
+
+/* =========================================
+   A11y: Post excerpt readability
+   ========================================= */
+
+html.a11y .post-excerpt,
+body.a11y .post-excerpt,
+html.accessibility .post-excerpt,
+body.accessibility .post-excerpt,
+html[data-a11y="1"] .post-excerpt,
+body[data-a11y="1"] .post-excerpt {
+  line-height: 1.6;
+}
