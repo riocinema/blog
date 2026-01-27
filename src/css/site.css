@@ -767,7 +767,7 @@ body[data-a11y="1"] .icon-btn::before {
   position: absolute;
 
   /* visual padding (tweak if you want more/less yellow) */
-  inset: -2px -2px;
+  inset: -2px -4px;
 
   background: transparent;
   z-index: -1;
@@ -783,8 +783,8 @@ body[data-a11y="1"] .icon-btn::after {
   content: "";
   position: absolute;
 
-  left: -6px;
-  right: -6px;
+  left: -4px;
+  right: -4px;
   bottom: -6px;
 
   height: 3px;
@@ -807,6 +807,7 @@ html[data-a11y="1"] .icon-btn.is-active::before,
 body[data-a11y="1"] .icon-btn.is-active::before {
   background: var(--a11y-yellow) !important;
 }
+
 /* -----------------------------------------
    Titles: typography on container, underline/highlight on WORDS ONLY
    ----------------------------------------- */
