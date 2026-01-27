@@ -910,7 +910,7 @@ html[data-a11y="1"] .post-date,
 body[data-a11y="1"] .post-date {
   display: block;
   margin-top: 16px;        /* was 10px */
-  font-size: 1.15em;       /* add */
+  font-size: 1rem;       /* add */
   line-height: 1.2;        /* add */
 }
 
@@ -924,7 +924,7 @@ body[data-a11y="1"] .post-meta-inline {
   display: block !important;
   margin: 16px 0 0 0 !important; /* was 10px */
   gap: 2px !important;
-  font-size: 1.15em !important;  /* add */
+  font-size: 1rem !important;  /* add */
   line-height: 1.2 !important;   /* add */
   text-decoration: none !important;
   background: transparent !important;
