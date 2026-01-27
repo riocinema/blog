@@ -663,6 +663,27 @@ main {
   }
 }
 
+/* Mobile: footer should be at bottom of page, not fixed */
+@media (max-width: 900px) {
+  .site-footer {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: auto;
+    padding-bottom: 18px;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+  }
+}
+
 /* =========================================
    Accessibility mode overrides
    (paste at END of site.css)
