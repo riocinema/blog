@@ -633,6 +633,15 @@ main {
   }
 }
 
+/* Normal mode: mobile homepage/search date should match post meta sizing */
+@media (max-width: 900px) {
+  .post-list .post-date,
+  #searchResults .post-date {
+    font-size: inherit;
+    line-height: inherit;
+  }
+}
+
 /* =========================================
    Accessibility mode overrides
    (paste at END of site.css)
@@ -1132,4 +1141,24 @@ html[data-a11y="1"] .post-body,
 body[data-a11y="1"] .post-body {
   font-size: 1.08rem;
   line-height: 1.7;
+}
+
+/* A11y: mobile tune for homepage/search date spacing + size */
+@media (max-width: 900px) {
+  html.a11y .post-list .post-date,
+  body.a11y .post-list .post-date,
+  html.accessibility .post-list .post-date,
+  body.accessibility .post-list .post-date,
+  html[data-a11y="1"] .post-list .post-date,
+  body[data-a11y="1"] .post-list .post-date,
+  html.a11y #searchResults .post-date,
+  body.a11y #searchResults .post-date,
+  html.accessibility #searchResults .post-date,
+  body.accessibility #searchResults .post-date,
+  html[data-a11y="1"] #searchResults .post-date,
+  body[data-a11y="1"] #searchResults .post-date {
+    margin-top: 10px !important;     /* closer to title */
+    font-size: 1.3rem !important;    /* smaller on mobile */
+    line-height: 1.2 !important;
+  }
 }
