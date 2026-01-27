@@ -795,27 +795,13 @@ body[data-a11y="1"] .post-title {
   font-weight: 800;
 
   /* your tuning knob */
-  line-height: 1.18;
+  line-height: 1.22;
 
   /* ensure nothing accidentally underlines the container */
   text-decoration: none !important;
 }
 
-/* Underline ONLY the title words (pseudo underline so it can sit ABOVE highlight) */
-html.a11y .title-text,
-body.a11y .title-text,
-html.accessibility .title-text,
-body.accessibility .title-text,
-html[data-a11y="1"] .title-text,
-body[data-a11y="1"] .title-text {
-  position: relative;
-  display: inline;
-
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
-
-/* Underline ONLY the title words — multi-line + sits ABOVE yellow highlight */
+/* Title words: multi-line underline + hover highlight (underline ABOVE highlight) */
 html.a11y .title-text,
 body.a11y .title-text,
 html.accessibility .title-text,
@@ -823,17 +809,28 @@ body.accessibility .title-text,
 html[data-a11y="1"] .title-text,
 body[data-a11y="1"] .title-text {
   display: inline;
+  line-height: 1.22; /* prevents highlight overlapping underline above */
+
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 
-  /* underline as a background layer (drawn above background-color) */
-  background-image: linear-gradient(var(--a11y-blue), var(--a11y-blue));
-  background-repeat: no-repeat;
-  background-size: 100% 3px;      /* thickness */
-  background-position: 0 1.12em;  /* underline vertical position — TUNE THIS */
+  /* TWO-LAYER BACKGROUND:
+     layer 1 = highlight color (transparent by default)
+     layer 2 = underline "rule" (always on)
+  */
+  background-image:
+    linear-gradient(transparent, transparent),
+    linear-gradient(var(--a11y-blue), var(--a11y-blue));
+  background-repeat: no-repeat, no-repeat;
 
-  /* helps keep underline from “inking out” on descenders */
-  padding-bottom: 0.12em;         /* TUNE THIS with the line above */
+  /* underline thickness */
+  background-size: 100% 0, 100% 3px;
+
+  /* underline position (TUNE this) */
+  background-position: 0 0, 0 calc(100% - 0.10em);
+
+  /* creates room for the underline so it doesn't collide with descenders */
+  padding-bottom: 0.14em;
 }
 
 /* slightly thinner underline on mobile */
@@ -844,24 +841,26 @@ body[data-a11y="1"] .title-text {
   body.accessibility .title-text,
   html[data-a11y="1"] .title-text,
   body[data-a11y="1"] .title-text {
-    background-size: 100% 2px;
+    background-size: 100% 0, 100% 2px;
   }
 }
 
+/* Hover highlight ONLY on title words (underline stays in same place) */
 html.a11y .post-item:hover .title-text,
 body.a11y .post-item:hover .title-text,
 html.accessibility .post-item:hover .title-text,
 body.accessibility .post-item:hover .title-text,
 html[data-a11y="1"] .post-item:hover .title-text,
 body[data-a11y="1"] .post-item:hover .title-text {
-  background-color: var(--a11y-yellow) !important;
   color: #000 !important;
 
-  /* keep underline layer alive on hover */
-  background-image: linear-gradient(var(--a11y-blue), var(--a11y-blue));
-  background-size: 100% 3px;
-  background-repeat: no-repeat;
-  background-position: 0 calc(100% - 0.12em);
+  /* switch layer 1 from transparent -> yellow, keep underline layer unchanged */
+  background-image:
+    linear-gradient(var(--a11y-yellow), var(--a11y-yellow)),
+    linear-gradient(var(--a11y-blue), var(--a11y-blue));
+  background-repeat: no-repeat, no-repeat;
+  background-size: 100% 100%, 100% 3px;
+  background-position: 0 0, 0 calc(100% - 0.10em);
 }
 
 /* Kill any legacy hover on whole title in a11y mode */
