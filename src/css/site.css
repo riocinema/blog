@@ -993,15 +993,6 @@ body[data-a11y="1"] .post-header .post-meta-inline {
   position: static !important;
 }
 
-html.a11y .post-header .post-meta-inline .post-author,
-body.a11y .post-header .post-meta-inline .post-author,
-html.accessibility .post-header .post-meta-inline .post-author,
-body.accessibility .post-header .post-meta-inline .post-author,
-html[data-a11y="1"] .post-header .post-meta-inline .post-author,
-body[data-a11y="1"] .post-header .post-meta-inline .post-author {
-  margin-top: 8px !important;
-}
-
 html.a11y .post-meta-inline .post-author,
 body.a11y .post-meta-inline .post-author,
 html.accessibility .post-meta-inline .post-author,
@@ -1195,4 +1186,14 @@ body[data-a11y="1"] .post-body {
     font-size: 1.3rem !important;    /* smaller on mobile */
     line-height: 1.2 !important;
   }
+  /* A11y mobile: slightly more space between date and author on post page only */
+  html.a11y .post-header .post-meta-inline .post-author,
+  body.a11y .post-header .post-meta-inline .post-author,
+  html.accessibility .post-header .post-meta-inline .post-author,
+  body.accessibility .post-header .post-meta-inline .post-author,
+  html[data-a11y="1"] .post-header .post-meta-inline .post-author,
+  body[data-a11y="1"] .post-header .post-meta-inline .post-author {
+    margin-top: 8px !important;
+  }
+
 }
