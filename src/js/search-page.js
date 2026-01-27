@@ -95,19 +95,22 @@ function buildHomeStyleItem(post) {
 
   if (prefix) titleText.append(document.createTextNode(prefix + " "));
 
-  const nowrap = document.createElement("span");
-  nowrap.className = "nowrap";
-  nowrap.textContent = last;
+const nowrap = document.createElement("span");
+nowrap.className = "nowrap";
 
-  titleText.appendChild(nowrap);
-  div.appendChild(titleText);
+// last word
+nowrap.append(document.createTextNode(last));
 
-  if (date) {
-    const dateSpan = document.createElement("span");
-    dateSpan.className = "post-date";
-    dateSpan.textContent = date;
-    div.appendChild(dateSpan);
-  }
+// date (kept inside nowrap so it sticks in normal mode)
+if (date) {
+  const dateSpan = document.createElement("span");
+  dateSpan.className = "post-date";
+  dateSpan.textContent = date;
+  nowrap.appendChild(dateSpan);
+}
+
+titleText.appendChild(nowrap);
+div.appendChild(titleText);
 
   a.appendChild(div);
   return a;
