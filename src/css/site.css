@@ -39,6 +39,7 @@
   --header-h: 110px;     /* FIX: enforce header height */
   --logo-h: 90px;        /* FIX: single source of truth for logo height */
   --hover-img-w: min(900px, 49vw);
+  --main-pad-top: 48px; /* current main top padding */
 }
 
 /* =========================
@@ -189,7 +190,7 @@ body.a11y .site-logo .logo-a11y {
    ========================= */
 
 main {
-  padding: 48px var(--header-pad-x) 64px; /* was 160px ... */
+  padding: var(--main-pad-top) var(--header-pad-x) 64px;
 }
 
 /* =========================
@@ -708,6 +709,8 @@ body[data-a11y="1"] {
   /* classic link blue + highlight yellow */
   --a11y-blue: #0000ee;
   --a11y-yellow: #ffeb3b;
+
+    --main-pad-top: 48px; /* match normal mode */
 }
 
 /* Kill any lingering dark areas / gradients everywhere */
