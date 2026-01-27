@@ -1024,6 +1024,35 @@ body[data-a11y="1"] .site-logo .logo-a11y {
   display: block !important;
 }
 
+   /* remove underline from the container */
+html.a11y .post-title { text-decoration: none !important; }
+
+/* underline ONLY the title words */
+html.a11y .title-text{
+  display: inline;
+  text-decoration-line: underline;
+  text-decoration-color: var(--a11y-blue);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.22em; /* closer to text */
+  text-decoration-skip-ink: none;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* hover highlight ONLY on the title words */
+html.a11y .post-item:hover .title-text{
+  background: var(--a11y-yellow);
+  color: #000 !important;
+}
+
+/* date/meta: always no underline */
+html.a11y .post-date,
+html.a11y .post-meta-inline,
+html.a11y .post-meta-inline *{
+  text-decoration: none !important;
+  background: transparent !important;
+}
+
   /* and keep it pushed to the bottom on short pages */
   margin-top: auto;
 }
