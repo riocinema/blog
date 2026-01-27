@@ -671,6 +671,9 @@ main {
     bottom: auto;
     margin-top: auto;
     padding-bottom: 18px;
+        /* NEW */
+    width: 100%;
+    text-align: center;
   }
 
   body {
