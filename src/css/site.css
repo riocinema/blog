@@ -767,7 +767,7 @@ body[data-a11y="1"] .icon-btn::before {
   position: absolute;
 
   /* visual padding (tweak if you want more/less yellow) */
-  inset: -4px -6px;
+  inset: -2px -2px;
 
   background: transparent;
   z-index: -1;
