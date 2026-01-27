@@ -845,7 +845,7 @@ body[data-a11y="1"] .title-text {
   }
 }
 
-/* Hover highlight ONLY on title words (underline stays in same place) */
+/* Hover highlight ONLY on title words (underline must survive hover) */
 html.a11y .post-item:hover .title-text,
 body.a11y .post-item:hover .title-text,
 html.accessibility .post-item:hover .title-text,
@@ -854,13 +854,16 @@ html[data-a11y="1"] .post-item:hover .title-text,
 body[data-a11y="1"] .post-item:hover .title-text {
   color: #000 !important;
 
-  /* switch layer 1 from transparent -> yellow, keep underline layer unchanged */
+  /* kill any shorthand backgrounds fighting us */
+  background: none !important;
+
+  /* layer 1 = yellow fill, layer 2 = blue underline */
   background-image:
     linear-gradient(var(--a11y-yellow), var(--a11y-yellow)),
-    linear-gradient(var(--a11y-blue), var(--a11y-blue));
-  background-repeat: no-repeat, no-repeat;
-  background-size: 100% 100%, 100% 3px;
-  background-position: 0 0, 0 calc(100% - 0.10em);
+    linear-gradient(var(--a11y-blue), var(--a11y-blue)) !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-size: 100% 100%, 100% 3px !important;
+  background-position: 0 0, 0 calc(100% - 0.10em) !important;
 }
 
 /* Kill any legacy hover on whole title in a11y mode */
