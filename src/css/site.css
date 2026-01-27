@@ -815,38 +815,36 @@ body[data-a11y="1"] .title-text {
   box-decoration-break: clone;
 }
 
-/* Fake underline ABOVE highlight */
-html.a11y .title-text::after,
-body.a11y .title-text::after,
-html.accessibility .title-text::after,
-body.accessibility .title-text::after,
-html[data-a11y="1"] .title-text::after,
-body[data-a11y="1"] .title-text::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
+/* Underline ONLY the title words — multi-line + sits ABOVE yellow highlight */
+html.a11y .title-text,
+body.a11y .title-text,
+html.accessibility .title-text,
+body.accessibility .title-text,
+html[data-a11y="1"] .title-text,
+body[data-a11y="1"] .title-text {
+  display: inline;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 
-  /* TUNE THIS: closer/further from text */
-  bottom: -0.22em;
+  /* underline as a background layer (drawn above background-color) */
+  background-image: linear-gradient(var(--a11y-blue), var(--a11y-blue));
+  background-repeat: no-repeat;
+  background-size: 100% 3px;      /* thickness */
+  background-position: 0 1.12em;  /* underline vertical position — TUNE THIS */
 
-  /* underline thickness */
-  height: 3px;
-
-  background: var(--a11y-blue);
-  pointer-events: none;
-  z-index: 2; /* sits above yellow highlight */
+  /* helps keep underline from “inking out” on descenders */
+  padding-bottom: 0.12em;         /* TUNE THIS with the line above */
 }
 
-/* Slightly thinner underline on mobile */
+/* slightly thinner underline on mobile */
 @media (max-width: 900px) {
-  html.a11y .title-text::after,
-  body.a11y .title-text::after,
-  html.accessibility .title-text::after,
-  body.accessibility .title-text::after,
-  html[data-a11y="1"] .title-text::after,
-  body[data-a11y="1"] .title-text::after {
-    height: 2px;
+  html.a11y .title-text,
+  body.a11y .title-text,
+  html.accessibility .title-text,
+  body.accessibility .title-text,
+  html[data-a11y="1"] .title-text,
+  body[data-a11y="1"] .title-text {
+    background-size: 100% 2px;
   }
 }
 
