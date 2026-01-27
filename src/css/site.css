@@ -801,34 +801,52 @@ body[data-a11y="1"] .post-title {
   text-decoration: none !important;
 }
 
-/* Underline ONLY the title words */
+/* Underline ONLY the title words (pseudo underline so it can sit ABOVE highlight) */
 html.a11y .title-text,
 body.a11y .title-text,
 html.accessibility .title-text,
 body.accessibility .title-text,
 html[data-a11y="1"] .title-text,
 body[data-a11y="1"] .title-text {
+  position: relative;
   display: inline;
-
-  text-decoration-line: underline;
-  text-decoration-color: var(--a11y-blue);
-  text-decoration-thickness: 3px;   /* desktop */
-  text-underline-offset: 0.22em;    /* closer to text */
-  text-decoration-skip-ink: none;
 
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 
+/* Fake underline ABOVE highlight */
+html.a11y .title-text::after,
+body.a11y .title-text::after,
+html.accessibility .title-text::after,
+body.accessibility .title-text::after,
+html[data-a11y="1"] .title-text::after,
+body[data-a11y="1"] .title-text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+
+  /* TUNE THIS: closer/further from text */
+  bottom: -0.22em;
+
+  /* underline thickness */
+  height: 3px;
+
+  background: var(--a11y-blue);
+  pointer-events: none;
+  z-index: 2; /* sits above yellow highlight */
+}
+
 /* Slightly thinner underline on mobile */
 @media (max-width: 900px) {
-  html.a11y .title-text,
-  body.a11y .title-text,
-  html.accessibility .title-text,
-  body.accessibility .title-text,
-  html[data-a11y="1"] .title-text,
-  body[data-a11y="1"] .title-text {
-    text-decoration-thickness: 2px;
+  html.a11y .title-text::after,
+  body.a11y .title-text::after,
+  html.accessibility .title-text::after,
+  body.accessibility .title-text::after,
+  html[data-a11y="1"] .title-text::after,
+  body[data-a11y="1"] .title-text::after {
+    height: 2px;
   }
 }
 
