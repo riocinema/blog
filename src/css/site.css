@@ -1062,3 +1062,33 @@ html[data-a11y="1"] .post-excerpt,
 body[data-a11y="1"] .post-excerpt {
   line-height: 1.6;
 }
+
+/* =========================================
+   A11y: Prev / Next links should look like links
+   ========================================= */
+
+html.a11y .post-nav-link,
+body.a11y .post-nav-link,
+html.accessibility .post-nav-link,
+body.accessibility .post-nav-link,
+html[data-a11y="1"] .post-nav-link,
+body[data-a11y="1"] .post-nav-link {
+  text-decoration-line: underline;
+  text-decoration-color: var(--a11y-blue);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+}
+
+/* =========================================
+   A11y: Image captions readability
+   ========================================= */
+
+html.a11y .figure__cap,
+body.a11y .figure__cap,
+html.accessibility .figure__cap,
+body.accessibility .figure__cap,
+html[data-a11y="1"] .figure__cap,
+body[data-a11y="1"] .figure__cap {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
