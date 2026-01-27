@@ -669,6 +669,7 @@ main {
     position: relative;
     right: auto;
     bottom: auto;
+     top: -10px;
     margin-top: auto;
     padding-bottom: 18px;
         /* NEW */
