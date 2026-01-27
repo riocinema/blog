@@ -653,6 +653,25 @@ main {
   }
 }
 
+/* Normal mode: on mobile, keep last-word + date as inline-flex so date can top-align */
+@media (max-width: 900px) {
+  .post-list .nowrap,
+  #searchResults .nowrap {
+    display: inline-flex;     /* bring flex back */
+    flex-wrap: wrap;          /* allow wrap on small screens */
+    align-items: flex-start;  /* top-align date with word */
+    gap: 10px;
+    white-space: normal;
+  }
+
+  .post-list .post-date,
+  #searchResults .post-date {
+    display: inline-block;
+    vertical-align: top;
+    top: 0.06em;              /* keep your desktop cap-height vibe */
+  }
+}
+
 /* =========================================
    Accessibility mode overrides
    (paste at END of site.css)
@@ -948,7 +967,7 @@ body[data-a11y="1"] .post-author {
   color: #000 !important;
 }
 
-/* Homepage + search: date under title (context-only sizing) */
+/* A11y: meta sizing baseline (desktop) — homepage/search + post page match */
 html.a11y .post-list .post-date,
 body.a11y .post-list .post-date,
 html.accessibility .post-list .post-date,
@@ -961,27 +980,51 @@ html.accessibility #searchResults .post-date,
 body.accessibility #searchResults .post-date,
 html[data-a11y="1"] #searchResults .post-date,
 body[data-a11y="1"] #searchResults .post-date {
-  display: block;
-  margin-top: 14px;
-  font-size: 1.25rem;
-  line-height: 1.25;
+  display: block !important;
+  margin-top: 14px !important;
+
+  /* bigger on desktop a11y */
+  font-size: 2.2rem !important;
+  line-height: 1.25 !important;
+
+  position: static !important;
+  top: auto !important;
 }
 
-/* Post page: date + author block (context-only sizing) */
-html.a11y .post-header .post-meta-inline,
-body.a11y .post-header .post-meta-inline,
-html.accessibility .post-header .post-meta-inline,
-body.accessibility .post-header .post-meta-inline,
-html[data-a11y="1"] .post-header .post-meta-inline,
-body[data-a11y="1"] .post-header .post-meta-inline {
+/* Post page meta block (date + author) */
+html.a11y .post-meta-inline,
+body.a11y .post-meta-inline,
+html.accessibility .post-meta-inline,
+body.accessibility .post-meta-inline,
+html[data-a11y="1"] .post-meta-inline,
+body[data-a11y="1"] .post-meta-inline {
   display: block !important;
   margin: 14px 0 0 0 !important;
-  gap: 2px !important;
-  font-size: 1.6rem !important;
-  line-height: 1.3 !important;
-  text-decoration: none !important;
-  background: transparent !important;
+
+  font-size: 2.2rem !important;
+  line-height: 1.25 !important;
+
   position: static !important;
+  top: auto !important;
+}
+
+/* Force the actual text nodes inside meta to ignore normal-mode em sizing */
+html.a11y .post-meta-inline .post-date,
+body.a11y .post-meta-inline .post-date,
+html.accessibility .post-meta-inline .post-date,
+body.accessibility .post-meta-inline .post-date,
+html[data-a11y="1"] .post-meta-inline .post-date,
+body[data-a11y="1"] .post-meta-inline .post-date,
+html.a11y .post-meta-inline .post-author,
+body.a11y .post-meta-inline .post-author,
+html.accessibility .post-meta-inline .post-author,
+body.accessibility .post-meta-inline .post-author,
+html[data-a11y="1"] .post-meta-inline .post-author,
+body[data-a11y="1"] .post-meta-inline .post-author {
+  font-size: 1em !important;
+  line-height: 1.25 !important;
+  position: static !important;
+  top: auto !important;
 }
 
 html.a11y .post-meta-inline .post-author,
@@ -1159,7 +1202,7 @@ body[data-a11y="1"] .post-body {
   line-height: 1.7;
 }
 
-/* A11y: mobile tune for homepage/search date spacing + size */
+/* A11y: mobile tune — keep everything consistent, slightly larger */
 @media (max-width: 900px) {
   html.a11y .post-list .post-date,
   body.a11y .post-list .post-date,
@@ -1173,23 +1216,21 @@ body[data-a11y="1"] .post-body {
   body.accessibility #searchResults .post-date,
   html[data-a11y="1"] #searchResults .post-date,
   body[data-a11y="1"] #searchResults .post-date {
-    margin-top: 10px !important;     /* closer to title */
-    font-size: 1.3rem !important;
-    line-height: 1.2 !important;
+    margin-top: 10px !important;
+    font-size: 1.7rem !important;
+    line-height: 1.25 !important;
   }
 
-  /* ADD THIS: A11y mobile post page meta matches homepage/search date size */
   html.a11y .post-header .post-meta-inline,
   body.a11y .post-header .post-meta-inline,
   html.accessibility .post-header .post-meta-inline,
   body.accessibility .post-header .post-meta-inline,
   html[data-a11y="1"] .post-header .post-meta-inline,
   body[data-a11y="1"] .post-header .post-meta-inline {
-    font-size: 1.3rem !important;
-    line-height: 1.3 !important;
+    font-size: 1.7rem !important;
+    line-height: 1.25 !important;
   }
 
-  /* keep your existing author spacing rule here too, if you have it */
   html.a11y .post-header .post-meta-inline .post-author,
   body.a11y .post-header .post-meta-inline .post-author,
   html.accessibility .post-header .post-meta-inline .post-author,
