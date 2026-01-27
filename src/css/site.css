@@ -801,7 +801,8 @@ body[data-a11y="1"] .post-title {
   text-decoration: none !important;
 }
 
-/* Title words: multi-line underline + hover highlight (underline ABOVE highlight) */
+/* Title words: multi-line underline + hover highlight
+   FIX: stable two-layer backgrounds, no shorthand reset; underline stays ABOVE highlight */
 html.a11y .title-text,
 body.a11y .title-text,
 html.accessibility .title-text,
@@ -809,27 +810,25 @@ body.accessibility .title-text,
 html[data-a11y="1"] .title-text,
 body[data-a11y="1"] .title-text {
   display: inline;
-  line-height: 1.22; /* prevents highlight overlapping underline above */
+  line-height: 1.22;
 
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 
-  /* TWO-LAYER BACKGROUND:
-     layer 1 = highlight color (transparent by default)
-     layer 2 = underline "rule" (always on)
-  */
+  /* layer 1 = underline (always on, sits ABOVE fill)
+     layer 2 = fill (transparent by default) */
   background-image:
-    linear-gradient(transparent, transparent),
-    linear-gradient(var(--a11y-blue), var(--a11y-blue));
+    linear-gradient(var(--a11y-blue), var(--a11y-blue)),
+    linear-gradient(transparent, transparent);
   background-repeat: no-repeat, no-repeat;
 
-  /* underline thickness */
-  background-size: 100% 0, 100% 3px;
+  /* underline thickness + full fill */
+  background-size: 100% 3px, 100% 100%;
 
-  /* underline position (TUNE this) */
-  background-position: 0 0, 0 calc(100% - 0.10em);
+  /* underline vertical position + fill origin */
+  background-position: 0 calc(100% - 0.10em), 0 0;
 
-  /* creates room for the underline so it doesn't collide with descenders */
+  /* room for underline vs descenders */
   padding-bottom: 0.14em;
 }
 
@@ -841,11 +840,11 @@ body[data-a11y="1"] .title-text {
   body.accessibility .title-text,
   html[data-a11y="1"] .title-text,
   body[data-a11y="1"] .title-text {
-    background-size: 100% 0, 100% 2px;
+    background-size: 100% 2px, 100% 100%;
   }
 }
 
-/* Hover highlight ONLY on title words (underline must survive hover) */
+/* Hover highlight ONLY on title words (do NOT reset background; just swap fill to yellow) */
 html.a11y .post-item:hover .title-text,
 body.a11y .post-item:hover .title-text,
 html.accessibility .post-item:hover .title-text,
@@ -854,16 +853,9 @@ html[data-a11y="1"] .post-item:hover .title-text,
 body[data-a11y="1"] .post-item:hover .title-text {
   color: #000 !important;
 
-  /* kill any shorthand backgrounds fighting us */
-  background: none !important;
-
-  /* layer 1 = yellow fill, layer 2 = blue underline */
   background-image:
-    linear-gradient(var(--a11y-yellow), var(--a11y-yellow)),
-    linear-gradient(var(--a11y-blue), var(--a11y-blue)) !important;
-  background-repeat: no-repeat, no-repeat !important;
-  background-size: 100% 100%, 100% 3px !important;
-  background-position: 0 0, 0 calc(100% - 0.10em) !important;
+    linear-gradient(var(--a11y-blue), var(--a11y-blue)),
+    linear-gradient(var(--a11y-yellow), var(--a11y-yellow));
 }
 
 /* Kill any legacy hover on whole title in a11y mode */
