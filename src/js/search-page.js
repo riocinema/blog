@@ -36,7 +36,7 @@ function scorePost(post, terms) {
   const tags = norm((post.tags || []).join(" "));
   const excerpt = norm(post.excerpt);
   const body = norm(post.body);
-  const author = norm(post.author); // <-- ADD: searchable author field
+  const author = norm(post.author); // searchable author field
 
   let score = 0;
 
@@ -53,10 +53,13 @@ function scorePost(post, terms) {
     if (body.includes(t)) score += 3;
 
     // small bonus for exact word boundary matches
-    const re = new RegExp(`\\b${t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i");
+    const re = new RegExp(
+      `\\b${t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`,
+      "i"
+    );
     if (re.test(post.title || "")) score += 4;
     if ((post.tags || []).some((x) => re.test(String(x)))) score += 3;
-    if (re.test(post.author || "")) score += 4; // <-- ADD: bonus for author exact match
+    if (re.test(post.author || "")) score += 4; // bonus for author exact match
   }
 
   return score;
@@ -79,26 +82,34 @@ function buildHomeStyleItem(post) {
   const div = document.createElement("div");
   div.className = "post-title";
 
-  // prefix + nowrap(last + date)
-  div.append(document.createTextNode(prefix ? prefix + " " : ""));
+  // NEW STRUCTURE:
+  // <div class="post-title">
+  //   <span class="title-text">
+  //     {prefix} <span class="nowrap">{last}</span>
+  //   </span>
+  //   <span class="post-date">{date}</span>
+  // </div>
+
+  const titleText = document.createElement("span");
+  titleText.className = "title-text";
+
+  if (prefix) titleText.append(document.createTextNode(prefix + " "));
 
   const nowrap = document.createElement("span");
   nowrap.className = "nowrap";
+  nowrap.textContent = last;
 
-  const lastSpan = document.createElement("span");
-  lastSpan.className = "title-text";
-  lastSpan.textContent = last;
+  titleText.appendChild(nowrap);
+  div.appendChild(titleText);
 
-  const dateSpan = document.createElement("span");
-  dateSpan.className = "post-date";
-  dateSpan.textContent = date ? date : "";
+  if (date) {
+    const dateSpan = document.createElement("span");
+    dateSpan.className = "post-date";
+    dateSpan.textContent = date;
+    div.appendChild(dateSpan);
+  }
 
-  nowrap.appendChild(lastSpan);
-  if (date) nowrap.appendChild(dateSpan);
-
-  div.appendChild(nowrap);
   a.appendChild(div);
-
   return a;
 }
 
@@ -137,31 +148,27 @@ async function init() {
     for (const p of items) {
       resultsEl.appendChild(buildHomeStyleItem(p));
     }
-
-    // Re-bind hover preview behavior if your existing script relies on events
-    // on .post-item elements. If your current hover preview script uses
-    // event delegation (recommended), you won't need anything here.
   }
 
-function applySearch(q, posts) {
-  const terms = tokenize(q);
-  if (!terms.length) return [];
+  function applySearch(q, posts) {
+    const terms = tokenize(q);
+    if (!terms.length) return [];
 
-  const scored = posts
-    .map((p) => ({ p, s: scorePost(p, terms) }))
-    // AND behaviour: every term/phrase must match somewhere (scorePost gives points if it matches)
-    .filter((x) => x.s > 0 && terms.every((t) => scorePost(x.p, [t]) > 0));
+    const scored = posts
+      .map((p) => ({ p, s: scorePost(p, terms) }))
+      // AND behaviour: every term must match somewhere
+      .filter((x) => x.s > 0 && terms.every((t) => scorePost(x.p, [t]) > 0));
 
-  // Sort by relevance first, then newest
-  scored.sort((a, b) => {
-    if (b.s !== a.s) return b.s - a.s;
-    const da = a.p.date ? new Date(a.p.date).getTime() : 0;
-    const db = b.p.date ? new Date(b.p.date).getTime() : 0;
-    return db - da;
-  });
+    // Sort by relevance first, then newest
+    scored.sort((a, b) => {
+      if (b.s !== a.s) return b.s - a.s;
+      const da = a.p.date ? new Date(a.p.date).getTime() : 0;
+      const db = b.p.date ? new Date(b.p.date).getTime() : 0;
+      return db - da;
+    });
 
-  return scored.map((x) => x.p);
-}
+    return scored.map((x) => x.p);
+  }
 
   async function onInput() {
     const q = input.value || "";
