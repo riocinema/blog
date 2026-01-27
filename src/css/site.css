@@ -1028,3 +1028,24 @@ body[data-a11y="1"] .site-footer {
   /* keep it pushed to the bottom on short pages */
   margin-top: auto;
 }
+
+/* A11y: post page title is not a link, so remove underline/highlight */
+html.a11y .post-header .title-text,
+body.a11y .post-header .title-text,
+html.accessibility .post-header .title-text,
+body.accessibility .post-header .title-text,
+html[data-a11y="1"] .post-header .title-text,
+body[data-a11y="1"] .post-header .title-text {
+  background-image: none !important; /* kills underline layer */
+}
+
+/* optional: make sure it never highlights on hover inside the post header */
+html.a11y .post-header .title-text:hover,
+body.a11y .post-header .title-text:hover,
+html.accessibility .post-header .title-text:hover,
+body.accessibility .post-header .title-text:hover,
+html[data-a11y="1"] .post-header .title-text:hover,
+body[data-a11y="1"] .post-header .title-text:hover {
+  background-image: none !important;
+  background-color: transparent !important;
+}
