@@ -676,8 +676,7 @@ body[data-a11y="1"] {
   color: #000 !important;
 }
 
-/* IMPORTANT: prevent dark html background showing through on short pages
-   (your JS toggles class on BODY, so html may stay dark in base mode) */
+/* Prevent dark html background showing through on short pages */
 body.a11y,
 body.accessibility,
 body[data-a11y="1"] {
@@ -714,7 +713,24 @@ body[data-a11y="1"] #hover-preview {
 }
 
 /* -----------------------------------------
-   Icons: black always; yellow highlight without shifting
+   Logo swap (CSS-only)
+   ----------------------------------------- */
+.site-logo .logo-a11y { display: none; }
+
+body.a11y .site-logo .logo-normal,
+body.accessibility .site-logo .logo-normal,
+body[data-a11y="1"] .site-logo .logo-normal {
+  display: none !important;
+}
+
+body.a11y .site-logo .logo-a11y,
+body.accessibility .site-logo .logo-a11y,
+body[data-a11y="1"] .site-logo .logo-a11y {
+  display: block !important;
+}
+
+/* -----------------------------------------
+   Icons: black always; yellow highlight WITH padding, no shifting
    ----------------------------------------- */
 html.a11y .icon-btn,
 body.a11y .icon-btn,
@@ -723,33 +739,51 @@ body.accessibility .icon-btn,
 html[data-a11y="1"] .icon-btn,
 body[data-a11y="1"] .icon-btn {
   color: #000 !important;
-  padding: 2px 6px;          /* keep constant so nothing moves */
+
+  /* stable sizing across states */
+  padding: 2px 6px;
   border-radius: 0 !important;
-  background: transparent;
   box-sizing: border-box;
+
+  background: transparent !important;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-html.a11y .icon-btn:hover,
-body.a11y .icon-btn:hover,
-html.accessibility .icon-btn:hover,
-body.accessibility .icon-btn:hover,
-html[data-a11y="1"] .icon-btn:hover,
-body[data-a11y="1"] .icon-btn:hover,
-html.a11y .icon-btn.is-active,
-body.a11y .icon-btn.is-active,
-html.accessibility .icon-btn.is-active,
-body.accessibility .icon-btn.is-active,
-html[data-a11y="1"] .icon-btn.is-active,
-body[data-a11y="1"] .icon-btn.is-active {
+/* highlight behind, does not affect layout */
+html.a11y .icon-btn::before,
+body.a11y .icon-btn::before,
+html.accessibility .icon-btn::before,
+body.accessibility .icon-btn::before,
+html[data-a11y="1"] .icon-btn::before,
+body[data-a11y="1"] .icon-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  z-index: -1;
+}
+
+html.a11y .icon-btn:hover::before,
+body.a11y .icon-btn:hover::before,
+html.accessibility .icon-btn:hover::before,
+body.accessibility .icon-btn:hover::before,
+html[data-a11y="1"] .icon-btn:hover::before,
+body[data-a11y="1"] .icon-btn:hover::before,
+html.a11y .icon-btn.is-active::before,
+body.a11y .icon-btn.is-active::before,
+html.accessibility .icon-btn.is-active::before,
+body.accessibility .icon-btn.is-active::before,
+html[data-a11y="1"] .icon-btn.is-active::before,
+body[data-a11y="1"] .icon-btn.is-active::before {
   background: var(--a11y-yellow) !important;
 }
 
 /* -----------------------------------------
-   Titles + underline + hover highlight (WORDS ONLY)
-   (a11y mode)
+   Titles: typography on container, underline/highlight on WORDS ONLY
    ----------------------------------------- */
-
-/* Keep typography on the container, but DO NOT underline it */
 html.a11y .post-title,
 body.a11y .post-title,
 html.accessibility .post-title,
@@ -759,10 +793,15 @@ body[data-a11y="1"] .post-title {
   color: #000 !important;
   font-family: "neue-haas-grotesk-text", system-ui, sans-serif;
   font-weight: 800;
+
+  /* your tuning knob */
   line-height: 1.18;
+
+  /* ensure nothing accidentally underlines the container */
+  text-decoration: none !important;
 }
 
-/* Underline ONLY the title words (prevents date/author underlining) */
+/* Underline ONLY the title words */
 html.a11y .title-text,
 body.a11y .title-text,
 html.accessibility .title-text,
@@ -770,10 +809,11 @@ body.accessibility .title-text,
 html[data-a11y="1"] .title-text,
 body[data-a11y="1"] .title-text {
   display: inline;
+
   text-decoration-line: underline;
   text-decoration-color: var(--a11y-blue);
   text-decoration-thickness: 3px;   /* desktop */
-  text-underline-offset: 0.34em;    /* push underline down */
+  text-underline-offset: 0.22em;    /* closer to text */
   text-decoration-skip-ink: none;
 
   -webkit-box-decoration-break: clone;
@@ -792,7 +832,7 @@ body[data-a11y="1"] .title-text {
   }
 }
 
-/* Hover highlight: apply ONLY to title words, not date/meta */
+/* Hover highlight ONLY on the title words */
 html.a11y .post-item:hover .title-text,
 body.a11y .post-item:hover .title-text,
 html.accessibility .post-item:hover .title-text,
@@ -806,7 +846,31 @@ body[data-a11y="1"] .post-item:hover .title-text {
   box-decoration-break: clone;
 }
 
-/* Safety: never underline date/author in a11y mode */
+/* Kill any legacy hover on whole title in a11y mode */
+html.a11y .post-item:hover .post-title,
+body.a11y .post-item:hover .post-title,
+html.accessibility .post-item:hover .post-title,
+body.accessibility .post-item:hover .post-title,
+html[data-a11y="1"] .post-item:hover .post-title,
+body[data-a11y="1"] .post-item:hover .post-title {
+  background: transparent !important;
+  color: #000 !important;
+}
+
+/* -----------------------------------------
+   A11y layout: put date/meta on its own line (CSS-only)
+   ----------------------------------------- */
+html.a11y .nowrap,
+body.a11y .nowrap,
+html.accessibility .nowrap,
+body.accessibility .nowrap,
+html[data-a11y="1"] .nowrap,
+body[data-a11y="1"] .nowrap {
+  display: contents !important;
+  white-space: normal !important;
+}
+
+/* Date + author: NEVER underline */
 html.a11y .post-date,
 body.a11y .post-date,
 html.accessibility .post-date,
@@ -821,24 +885,11 @@ html[data-a11y="1"] .post-author,
 body[data-a11y="1"] .post-author {
   text-decoration: none !important;
   text-decoration-line: none !important;
+  background: transparent !important;
+  color: #000 !important;
 }
 
-/* -----------------------------------------
-   Break the date/meta OUT of the “last word” wrap (CSS-only)
-   ----------------------------------------- */
-
-/* Neutralise the nowrap wrapper in a11y mode so it can't force “last word + meta” */
-html.a11y .nowrap,
-body.a11y .nowrap,
-html.accessibility .nowrap,
-body.accessibility .nowrap,
-html[data-a11y="1"] .nowrap,
-body[data-a11y="1"] .nowrap {
-  display: contents !important; /* unwrap without changing templates */
-  white-space: normal !important;
-}
-
-/* Homepage/search date: under title, black, no underline, no highlight */
+/* Homepage/search date: under title */
 html.a11y .post-date,
 body.a11y .post-date,
 html.accessibility .post-date,
@@ -846,13 +897,10 @@ body.accessibility .post-date,
 html[data-a11y="1"] .post-date,
 body[data-a11y="1"] .post-date {
   display: block;
-  margin-top: 10px; /* CHANGED: was 6px */
-  color: #000 !important;
-  text-decoration: none !important;
-  background: transparent !important;
+  margin-top: 10px;
 }
 
-/* Post page meta block: left-aligned UNDER title, tight spacing */
+/* Post page meta block: left-aligned UNDER title */
 html.a11y .post-meta-inline,
 body.a11y .post-meta-inline,
 html.accessibility .post-meta-inline,
@@ -860,40 +908,13 @@ body.accessibility .post-meta-inline,
 html[data-a11y="1"] .post-meta-inline,
 body[data-a11y="1"] .post-meta-inline {
   display: block !important;
-  margin: 10px 0 0 0 !important; /* CHANGED: was 6px */
+  margin: 10px 0 0 0 !important;
   gap: 2px !important;
-  color: #000 !important;
+
   text-decoration: none !important;
   background: transparent !important;
-  vertical-align: baseline !important;
-  position: static !important; /* prevents drifting beside title */
-}
 
-html.a11y .post-meta-inline .post-date,
-html.a11y .post-meta-inline .post-author,
-body.a11y .post-meta-inline .post-date,
-body.a11y .post-meta-inline .post-author,
-html.accessibility .post-meta-inline .post-date,
-html.accessibility .post-meta-inline .post-author,
-body.accessibility .post-meta-inline .post-date,
-body.accessibility .post-meta-inline .post-author,
-html[data-a11y="1"] .post-meta-inline .post-date,
-html[data-a11y="1"] .post-meta-inline .post-author,
-body[data-a11y="1"] .post-meta-inline .post-date,
-body[data-a11y="1"] .post-meta-inline .post-author {
-  color: #000 !important;
-  text-decoration: none !important;
-  background: transparent !important;
-}
-
-/* Make sure date/meta never get the yellow hover background */
-html.a11y .post-date,
-html.a11y .post-meta-inline,
-html.a11y .post-meta-inline * ,
-body.a11y .post-date,
-body.a11y .post-meta-inline,
-body.a11y .post-meta-inline * {
-  background: transparent !important;
+  position: static !important;
 }
 
 /* -----------------------------------------
@@ -980,79 +1001,6 @@ body[data-a11y="1"] .site-footer {
   outline: 0 !important;
   box-shadow: none !important;
 
-   /* Kill legacy hover on whole title in a11y mode */
-html.a11y .post-item:hover .post-title,
-body.a11y .post-item:hover .post-title,
-html.accessibility .post-item:hover .post-title,
-body.accessibility .post-item:hover .post-title,
-html[data-a11y="1"] .post-item:hover .post-title,
-body[data-a11y="1"] .post-item:hover .post-title {
-  background: transparent !important;
-  color: #000 !important;
-}
-
-   /* -----------------------------------------
-   Logo swap (CSS-only)
-   ----------------------------------------- */
-.site-logo { position: relative; }
-
-.site-logo .logo-a11y { display: none; }
-
-/* When a11y mode is on, swap images */
-body.a11y .site-logo .logo-normal,
-body.accessibility .site-logo .logo-normal,
-body[data-a11y="1"] .site-logo .logo-normal {
-  display: none !important;
-}
-
-body.a11y .site-logo .logo-a11y,
-body.accessibility .site-logo .logo-a11y,
-body[data-a11y="1"] .site-logo .logo-a11y {
-  display: block !important;
-}
-
-   /* A11y mode: swap logos */
-body.a11y .site-logo .logo-normal,
-body.accessibility .site-logo .logo-normal,
-body[data-a11y="1"] .site-logo .logo-normal {
-  display: none !important;
-}
-
-body.a11y .site-logo .logo-a11y,
-body.accessibility .site-logo .logo-a11y,
-body[data-a11y="1"] .site-logo .logo-a11y {
-  display: block !important;
-}
-
-   /* remove underline from the container */
-html.a11y .post-title { text-decoration: none !important; }
-
-/* underline ONLY the title words */
-html.a11y .title-text{
-  display: inline;
-  text-decoration-line: underline;
-  text-decoration-color: var(--a11y-blue);
-  text-decoration-thickness: 3px;
-  text-underline-offset: 0.22em; /* closer to text */
-  text-decoration-skip-ink: none;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-
-/* hover highlight ONLY on the title words */
-html.a11y .post-item:hover .title-text{
-  background: var(--a11y-yellow);
-  color: #000 !important;
-}
-
-/* date/meta: always no underline */
-html.a11y .post-date,
-html.a11y .post-meta-inline,
-html.a11y .post-meta-inline *{
-  text-decoration: none !important;
-  background: transparent !important;
-}
-
-  /* and keep it pushed to the bottom on short pages */
+  /* keep it pushed to the bottom on short pages */
   margin-top: auto;
 }
