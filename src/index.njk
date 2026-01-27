@@ -15,7 +15,10 @@ title: Rio Forever Blog
       data-image="{{ post.data.featuredImage }}"
     >
       <div class="post-title">
-  <span class="title-text">{{ post.data.title }}</span>
+  <span class="title-text">
+    {{ prefix }}
+    <span class="nowrap">{{ last }}</span>
+  </span>
   <span class="post-date">{{ post.data.date | readableDate }}</span>
 </div>
     </a>
