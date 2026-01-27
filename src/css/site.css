@@ -642,6 +642,26 @@ main {
   }
 }
 
+/* Normal mode: mobile homepage/search title should match post page title sizing */
+@media (max-width: 900px) {
+  .post-list .post-title,
+  #searchResults .post-title {
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Normal mode: mobile homepage/search title should match post page title sizing */
+@media (max-width: 900px) {
+  .post-list .post-title,
+  #searchResults .post-title {
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+}
+
 /* =========================================
    Accessibility mode overrides
    (paste at END of site.css)
@@ -937,35 +957,49 @@ body[data-a11y="1"] .post-author {
   color: #000 !important;
 }
 
-/* Homepage/search date: under title */
-html.a11y .post-date,
-body.a11y .post-date,
-html.accessibility .post-date,
-body.accessibility .post-date,
-html[data-a11y="1"] .post-date,
-body[data-a11y="1"] .post-date {
+/* Homepage + search: date under title (context-only sizing) */
+html.a11y .post-list .post-date,
+body.a11y .post-list .post-date,
+html.accessibility .post-list .post-date,
+body.accessibility .post-list .post-date,
+html[data-a11y="1"] .post-list .post-date,
+body[data-a11y="1"] .post-list .post-date,
+html.a11y #searchResults .post-date,
+body.a11y #searchResults .post-date,
+html.accessibility #searchResults .post-date,
+body.accessibility #searchResults .post-date,
+html[data-a11y="1"] #searchResults .post-date,
+body[data-a11y="1"] #searchResults .post-date {
   display: block;
-  margin-top: 16px;        /* was 10px */
-  font-size: 2rem;       /* add */
-  line-height: 1.2;        /* add */
+  margin-top: 14px;
+  font-size: 1.25rem;
+  line-height: 1.25;
 }
 
-/* Post page meta block: left-aligned UNDER title */
-html.a11y .post-meta-inline,
-body.a11y .post-meta-inline,
-html.accessibility .post-meta-inline,
-body.accessibility .post-meta-inline,
-html[data-a11y="1"] .post-meta-inline,
-body[data-a11y="1"] .post-meta-inline {
+/* Post page: date + author block (context-only sizing) */
+html.a11y .post-header .post-meta-inline,
+body.a11y .post-header .post-meta-inline,
+html.accessibility .post-header .post-meta-inline,
+body.accessibility .post-header .post-meta-inline,
+html[data-a11y="1"] .post-header .post-meta-inline,
+body[data-a11y="1"] .post-header .post-meta-inline {
   display: block !important;
-  margin: 16px 0 0 0 !important; /* was 10px */
+  margin: 14px 0 0 0 !important;
   gap: 2px !important;
-  font-size: 2rem !important;  /* add */
-  line-height: 1.2 !important;   /* add */
+  font-size: 1.10rem !important;
+  line-height: 1.25 !important;
   text-decoration: none !important;
   background: transparent !important;
-
   position: static !important;
+}
+
+html.a11y .post-header .post-meta-inline .post-author,
+body.a11y .post-header .post-meta-inline .post-author,
+html.accessibility .post-header .post-meta-inline .post-author,
+body.accessibility .post-header .post-meta-inline .post-author,
+html[data-a11y="1"] .post-header .post-meta-inline .post-author,
+body[data-a11y="1"] .post-header .post-meta-inline .post-author {
+  margin-top: 8px !important;
 }
 
 html.a11y .post-meta-inline .post-author,
