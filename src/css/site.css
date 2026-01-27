@@ -1092,3 +1092,17 @@ body[data-a11y="1"] .figure__cap {
   font-size: 1.05rem;
   line-height: 1.6;
 }
+
+/* =========================================
+   A11y: Body text readability
+   ========================================= */
+
+html.a11y .post-body,
+body.a11y .post-body,
+html.accessibility .post-body,
+body.accessibility .post-body,
+html[data-a11y="1"] .post-body,
+body[data-a11y="1"] .post-body {
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
