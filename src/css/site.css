@@ -848,18 +848,20 @@ body[data-a11y="1"] .title-text {
   }
 }
 
-/* Hover highlight ONLY on the title words */
 html.a11y .post-item:hover .title-text,
 body.a11y .post-item:hover .title-text,
 html.accessibility .post-item:hover .title-text,
 body.accessibility .post-item:hover .title-text,
 html[data-a11y="1"] .post-item:hover .title-text,
 body[data-a11y="1"] .post-item:hover .title-text {
-  background: var(--a11y-yellow);
+  background-color: var(--a11y-yellow) !important;
   color: #000 !important;
 
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
+  /* keep underline layer alive on hover */
+  background-image: linear-gradient(var(--a11y-blue), var(--a11y-blue));
+  background-size: 100% 3px;
+  background-repeat: no-repeat;
+  background-position: 0 calc(100% - 0.12em);
 }
 
 /* Kill any legacy hover on whole title in a11y mode */
