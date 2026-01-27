@@ -559,7 +559,7 @@ main {
   }
 
   .post-meta-inline {
-    top: 0;
+    top: -0.06em;
     font-size: 0.4em;
   }
 
@@ -618,7 +618,7 @@ main {
   }
 
   .post-date {
-    top: 0;
+    top: -0.06em;
     font-size: 0.4em;
   }
 
@@ -633,15 +633,6 @@ main {
   }
 }
 
-/* Normal mode: mobile homepage/search date should match post meta sizing */
-@media (max-width: 900px) {
-  .post-list .post-date,
-  #searchResults .post-date {
-    font-size: 0.40em;
-    line-height: 1;
-    top: 0.06em;
-  }
-}
 
 /* Normal mode: mobile homepage/search title should match post page title sizing */
 @media (max-width: 900px) {
@@ -668,7 +659,7 @@ main {
   #searchResults .post-date {
     display: inline-block;
     vertical-align: top;
-    top: 0.06em;              /* keep your desktop cap-height vibe */
+    top: 0;              /* keep your desktop cap-height vibe */
   }
 }
 
